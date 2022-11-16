@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @HIMAVARASAGAR
 - 👀 I’m interested in ...games
-- 🌱 I’m currently learning ...python
+- 🌱 I’m currently learning ...python and javascript
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach me ...himavarasagar-ig
 
