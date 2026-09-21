@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./src/generated/hero.svg" width="100%" alt="Hima Vara Sagar" />
+  <img src="./src/generated/hero.svg?v=brutalist" width="100%" alt="Hima Vara Sagar" />
 </p>
 
 I'm an electronics and communication engineering graduate based in Hyderabad, India. I work on hardware projects, agent systems, and developer tools.
@@ -27,7 +27,7 @@ A Python utility package published on PyPI for structured data operations and co
 ---
 
 <p align="center">
-  <img src="./src/generated/projects.svg" width="100%" alt="Repositories" />
+  <img src="./src/generated/projects.svg?v=brutalist" width="100%" alt="Repositories" />
 </p>
 
 ---
@@ -54,13 +54,13 @@ A Python utility package published on PyPI for structured data operations and co
 ---
 
 <p align="center">
-  <img src="./src/generated/activity.svg" width="100%" alt="Activity" />
+  <img src="./src/generated/activity.svg?v=brutalist" width="100%" alt="Activity" />
 </p>
 
 ---
 
 <p align="center">
-  <img src="./src/generated/closing.svg" width="100%" alt="Closing" />
+  <img src="./src/generated/closing.svg?v=brutalist" width="100%" alt="Closing" />
 </p>
 
 <p align="center">
