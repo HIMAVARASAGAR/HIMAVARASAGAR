@@ -140,21 +140,15 @@ export function generateAnimatedHeroLayer(): string {
     // Polar distance rings (r = 70, 140, 210, 280)
     for (const r of [70, 140, 210, 280]) {
       p.push(`<circle cx="860" cy="190" r="${r}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.5" stroke-dasharray="4 7"/>`);
-      p.push(`<text x="${860 + r + 3}" y="186" font-family="monospace" font-size="7" fill="rgba(255,255,255,0.20)">r=${r}</text>`);
     }
 
-    // Telemetry crosshairs at Port 1 and Port 2
-    p.push(`<line x1="844" y1="190" x2="876" y2="190" stroke="#00f0ff" stroke-opacity="0.8" stroke-width="1"/>`);
-    p.push(`<line x1="860" y1="174" x2="860" y2="206" stroke="#00f0ff" stroke-opacity="0.8" stroke-width="1"/>`);
-    p.push(`<circle cx="860" cy="190" r="18" fill="none" stroke="#00f0ff" stroke-opacity="0.3" stroke-width="0.6" stroke-dasharray="2 3"/>`);
+    // Precision crosshairs at focal points
+    p.push(`<line x1="844" y1="190" x2="876" y2="190" stroke="#00f0ff" stroke-opacity="0.7" stroke-width="0.8"/>`);
+    p.push(`<line x1="860" y1="174" x2="860" y2="206" stroke="#00f0ff" stroke-opacity="0.7" stroke-width="0.8"/>`);
+    p.push(`<circle cx="860" cy="190" r="18" fill="none" stroke="#00f0ff" stroke-opacity="0.25" stroke-width="0.5" stroke-dasharray="2 3"/>`);
 
-    p.push(`<line x1="960" y1="260" x2="980" y2="260" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>`);
-    p.push(`<line x1="970" y1="250" x2="970" y2="270" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>`);
-
-    // Engineering annotations with high-contrast text
-    p.push(`<text x="878" y="182" font-family="monospace" font-size="8" fill="#00f0ff" font-weight="600" letter-spacing="1">PORT_01 // 1.0 THz</text>`);
-    p.push(`<text x="982" y="254" font-family="monospace" font-size="7.5" fill="rgba(255,255,255,0.35)" letter-spacing="1">PORT_02 // Δφ = 45°</text>`);
-    p.push(`<text x="652" y="66" font-family="monospace" font-size="8" fill="rgba(255,255,255,0.3)" letter-spacing="1.5">MIMO_SPATIAL_FIELD [2-ELEM]</text>`);
+    p.push(`<line x1="960" y1="260" x2="980" y2="260" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>`);
+    p.push(`<line x1="970" y1="250" x2="970" y2="270" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>`);
 
     // Radar scanning beam with trailing phosphor cyan glow
     p.push(`<g class="sweep-beam">`);

@@ -16,7 +16,7 @@ export function Closing() {
         borderRadius: "6px",
       }}
     >
-      {/* ── Top Framing Rule & Coordinates ── */}
+      {/* ── Top Header ── */}
       <div
         style={{
           display: "flex",
@@ -35,23 +35,22 @@ export function Closing() {
         >
           <span
             style={{
-              fontSize: "10px",
-              fontFamily: "monospace",
+              fontSize: "11px",
               color: "#50627a",
-              letterSpacing: "0.14em",
+              letterSpacing: "0.04em",
             }}
           >
-            SYS_REF // HYDERABAD, IN [17.3850° N, 78.4867° E]
+            Hyderabad, India
           </span>
           <span
             style={{
-              fontSize: "10px",
-              fontFamily: "monospace",
+              fontSize: "12px",
+              fontWeight: 600,
               color: "#00f0ff",
-              letterSpacing: "0.14em",
+              letterSpacing: "0.08em",
             }}
           >
-            04 // END TRANSMISSION
+            04
           </span>
         </div>
         <div
@@ -64,7 +63,7 @@ export function Closing() {
         />
       </div>
 
-      {/* ── Editorial Identity Block ── */}
+      {/* ── Identity & Links ── */}
       <div
         style={{
           display: "flex",
@@ -74,12 +73,12 @@ export function Closing() {
           paddingBottom: "6px",
         }}
       >
-        {/* Left: Identity Specification */}
+        {/* Left: Identity */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: "6px",
+            gap: "4px",
           }}
         >
           <span
@@ -90,20 +89,19 @@ export function Closing() {
               letterSpacing: "-0.2px",
             }}
           >
-            HIMA VARA SAGAR
+            Hima Vara Sagar
           </span>
           <span
             style={{
-              fontSize: "10px",
+              fontSize: "11px",
               color: "#50627a",
-              letterSpacing: "0.06em",
             }}
           >
-            Electronics & Communication Engineer · High-Frequency RF & Systems
+            Electronics & Communication Engineering
           </span>
         </div>
 
-        {/* Right: Network Signatures */}
+        {/* Right: Network links */}
         <div
           style={{
             display: "flex",
@@ -114,20 +112,18 @@ export function Closing() {
           <span
             style={{
               fontSize: "11px",
-              fontFamily: "monospace",
               color: "#8092a8",
-              letterSpacing: "0.04em",
+              letterSpacing: "0.02em",
             }}
           >
             github.com/HIMAVARASAGAR
           </span>
-          <span style={{ fontSize: "11px", color: "#1a2332" }}>/</span>
+          <span style={{ fontSize: "11px", color: "#1a2332" }}>·</span>
           <span
             style={{
               fontSize: "11px",
-              fontFamily: "monospace",
               color: "#8092a8",
-              letterSpacing: "0.04em",
+              letterSpacing: "0.02em",
             }}
           >
             linkedin.com/in/himavarasagar

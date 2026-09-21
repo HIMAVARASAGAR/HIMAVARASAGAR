@@ -28,17 +28,15 @@ export function Activity() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "baseline",
-          fontSize: 12,
-          letterSpacing: "2px",
-          color: "#666",
+          width: "100%",
         }}
       >
         <div style={{ display: "flex", gap: "20px", alignItems: "baseline" }}>
-          <span style={{ color: "#e2f9ff", fontWeight: 600, fontSize: 11, letterSpacing: "0.22em" }}>
-            ACTIVITY SPECTROGRAM
+          <span style={{ color: "#e2f9ff", fontWeight: 600, fontSize: 11, letterSpacing: "0.20em" }}>
+            ACTIVITY
           </span>
-          <span style={{ color: "#00f0ff", fontSize: 10, fontFamily: "monospace", letterSpacing: "1px" }}>
-            {total} CONTRIBUTIONS / LAST 365 DAYS
+          <span style={{ color: "#50627a", fontSize: 11, letterSpacing: "0.02em" }}>
+            {total} contributions in the last year
           </span>
         </div>
         <div style={{ color: "#00f0ff", fontSize: 12, fontWeight: 600, letterSpacing: "0.08em" }}>
@@ -63,22 +61,17 @@ export function Activity() {
           alignItems: "center",
           fontSize: 10,
           color: "#50627a",
-          fontFamily: "monospace",
         }}
       >
-        <div>52 WEEKS // CHRONOLOGICAL SEQUENCE</div>
+        <div>52 weeks</div>
         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <div style={{ width: "9px", height: "9px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "2px", display: "flex" }} />
-            <span>0</span>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-            <div style={{ width: "9px", height: "9px", background: "rgba(255,255,255,0.35)", borderRadius: "2px", display: "flex" }} />
-            <span>low</span>
+            <span>less</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <div style={{ width: "9px", height: "9px", background: "#00f0ff", borderRadius: "2px", display: "flex" }} />
-            <span style={{ color: "#00f0ff" }}>active</span>
+            <span>more</span>
           </div>
         </div>
       </div>
