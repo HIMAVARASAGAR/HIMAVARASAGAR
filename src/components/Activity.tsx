@@ -14,11 +14,11 @@ export function Activity() {
         flexDirection: "column",
         justifyContent: "space-between",
         padding: "32px 56px 28px 56px",
-        backgroundColor: "#070a0f",
+        backgroundColor: "#0c0e12",
         color: "#f2f2f2",
         fontFamily: "Inter",
         overflow: "hidden",
-        border: "1px solid #1a2332",
+        border: "1px solid #1d222a",
         borderRadius: "6px",
       }}
     >
@@ -32,14 +32,14 @@ export function Activity() {
         }}
       >
         <div style={{ display: "flex", gap: "20px", alignItems: "baseline" }}>
-          <span style={{ color: "#e2f9ff", fontWeight: 600, fontSize: 11, letterSpacing: "0.20em" }}>
+          <span style={{ color: "#e2e8f0", fontWeight: 600, fontSize: 11, letterSpacing: "0.20em" }}>
             ACTIVITY
           </span>
-          <span style={{ color: "#50627a", fontSize: 11, letterSpacing: "0.02em" }}>
+          <span style={{ color: "#6e7681", fontSize: 11, letterSpacing: "0.02em" }}>
             {total} contributions in the last year
           </span>
         </div>
-        <div style={{ color: "#00f0ff", fontSize: 12, fontWeight: 600, letterSpacing: "0.08em" }}>
+        <div style={{ color: "#ff5500", fontSize: 12, fontWeight: 600, letterSpacing: "0.08em" }}>
           03
         </div>
       </div>
@@ -60,18 +60,21 @@ export function Activity() {
           justifyContent: "space-between",
           alignItems: "center",
           fontSize: 10,
-          color: "#50627a",
+          color: "#6e7681",
         }}
       >
         <div>52 weeks</div>
         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-            <div style={{ width: "9px", height: "9px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "2px", display: "flex" }} />
+            <div style={{ width: "9px", height: "9px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "2px", display: "flex" }} />
             <span>less</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-            <div style={{ width: "9px", height: "9px", background: "#00f0ff", borderRadius: "2px", display: "flex" }} />
-            <span>more</span>
+            <div style={{ width: "9px", height: "9px", background: "rgba(240,244,250,0.45)", borderRadius: "2px", display: "flex" }} />
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <div style={{ width: "9px", height: "9px", background: "#f0f4fa", borderRadius: "2px", display: "flex" }} />
+            <span style={{ color: "#f0f4fa" }}>more</span>
           </div>
         </div>
       </div>

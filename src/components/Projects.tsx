@@ -15,13 +15,13 @@ export function Projects() {
         flexDirection: "column",
         width: "1200px",
         height: "440px",
-        backgroundColor: "#070a0f",
+        backgroundColor: "#0c0e12",
         color: "#f2f2f2",
         fontFamily: "Inter",
         padding: "36px 56px 32px 56px",
         position: "relative",
         justifyContent: "space-between",
-        border: "1px solid #1a2332",
+        border: "1px solid #1d222a",
         borderRadius: "6px",
       }}
     >
@@ -39,7 +39,7 @@ export function Projects() {
             fontSize: "11px",
             fontWeight: 600,
             letterSpacing: "0.20em",
-            color: "#e2f9ff",
+            color: "#e2e8f0",
           }}
         >
           REPOSITORIES
@@ -49,7 +49,7 @@ export function Projects() {
           style={{
             fontSize: "12px",
             fontWeight: 600,
-            color: "#00f0ff",
+            color: "#ff5500",
             letterSpacing: "0.08em",
           }}
         >
@@ -63,7 +63,7 @@ export function Projects() {
           display: "flex",
           width: "100%",
           height: "1px",
-          backgroundColor: "#16202c",
+          backgroundColor: "#1d222a",
           marginTop: "12px",
         }}
       />
@@ -96,7 +96,7 @@ export function Projects() {
                 width: "336px",
                 paddingRight: i < 2 ? "24px" : "0px",
                 paddingLeft: i > 0 ? "24px" : "0px",
-                borderRight: i < 2 ? "1px solid #16202c" : "none",
+                borderRight: i < 2 ? "1px solid #1d222a" : "none",
               }}
             >
               <div
@@ -110,7 +110,7 @@ export function Projects() {
                 <span
                   style={{
                     fontSize: "10px",
-                    color: "#00f0ff",
+                    color: "#8b949e",
                     fontFamily: "monospace",
                     letterSpacing: "0.08em",
                     fontWeight: 600,
@@ -121,7 +121,7 @@ export function Projects() {
                 <span
                   style={{
                     fontSize: "10px",
-                    color: "#50627a",
+                    color: "#6e7681",
                     letterSpacing: "0.04em",
                   }}
                 >
@@ -150,7 +150,7 @@ export function Projects() {
             display: "flex",
             width: "100%",
             height: "1px",
-            backgroundColor: "#16202c",
+            backgroundColor: "#1d222a",
             marginTop: "12px",
             marginBottom: "12px",
           }}
@@ -173,7 +173,7 @@ export function Projects() {
                 width: "336px",
                 paddingRight: i < 2 ? "24px" : "0px",
                 paddingLeft: i > 0 ? "24px" : "0px",
-                borderRight: i < 2 ? "1px solid #16202c" : "none",
+                borderRight: i < 2 ? "1px solid #1d222a" : "none",
               }}
             >
               <div
@@ -187,7 +187,7 @@ export function Projects() {
                 <span
                   style={{
                     fontSize: "10px",
-                    color: "#00f0ff",
+                    color: "#8b949e",
                     fontFamily: "monospace",
                     letterSpacing: "0.08em",
                     fontWeight: 600,
@@ -198,7 +198,7 @@ export function Projects() {
                 <span
                   style={{
                     fontSize: "10px",
-                    color: "#50627a",
+                    color: "#6e7681",
                     letterSpacing: "0.04em",
                   }}
                 >
@@ -236,7 +236,7 @@ export function Projects() {
             display: "flex",
             width: "100%",
             height: "1px",
-            backgroundColor: "#16202c",
+            backgroundColor: "#1d222a",
           }}
         />
         <div
@@ -249,7 +249,7 @@ export function Projects() {
           <span
             style={{
               fontSize: "10px",
-              color: "#50627a",
+              color: "#6e7681",
               letterSpacing: "0.08em",
             }}
           >
@@ -258,7 +258,7 @@ export function Projects() {
           <span
             style={{
               fontSize: "10px",
-              color: "#50627a",
+              color: "#6e7681",
               letterSpacing: "0.08em",
             }}
           >

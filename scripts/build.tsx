@@ -46,13 +46,13 @@ function generateProjectsAccents(): string {
   <style>
     @keyframes matrixSweep {
       0% { transform: translateY(0px); opacity: 0; }
-      5% { opacity: 0.55; }
-      90% { opacity: 0.45; }
+      5% { opacity: 0.45; }
+      90% { opacity: 0.35; }
       100% { transform: translateY(440px); opacity: 0; }
     }
     @keyframes nodeBlink {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 1; }
+      0%, 100% { opacity: 0.25; }
+      50% { opacity: 0.85; }
     }
     .proj-sweep { animation: matrixSweep 8s cubic-bezier(0.3, 0.05, 0.3, 0.95) infinite; }
     .corner-node { animation: nodeBlink 2.4s ease-in-out infinite; }
@@ -60,21 +60,21 @@ function generateProjectsAccents(): string {
   <g id="projects-accents">
     <defs>
       <linearGradient id="projSweepGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="#00f0ff" stop-opacity="0"/>
-        <stop offset="80%" stop-color="#00f0ff" stop-opacity="0.04"/>
-        <stop offset="100%" stop-color="#00f0ff" stop-opacity="0.16"/>
+        <stop offset="0%" stop-color="#ff5500" stop-opacity="0"/>
+        <stop offset="80%" stop-color="#ff5500" stop-opacity="0.03"/>
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0.12"/>
       </linearGradient>
     </defs>
-    <!-- Subtle vertical scanning beam with cyan phosphor tint -->
+    <!-- Subtle vertical scanning beam with titanium/ember tone -->
     <g class="proj-sweep">
-      <line x1="56" y1="0" x2="1144" y2="0" stroke="#00f0ff" stroke-opacity="0.7" stroke-width="1.0"/>
-      <rect x="56" y="-28" width="1088" height="28" fill="url(#projSweepGrad)"/>
+      <line x1="56" y1="0" x2="1144" y2="0" stroke="#8b949e" stroke-opacity="0.4" stroke-width="0.8"/>
+      <rect x="56" y="-24" width="1088" height="24" fill="url(#projSweepGrad)"/>
     </g>
     <!-- Micro technical corner indicators on outer frame -->
-    <circle cx="56" cy="36" r="2" fill="#00f0ff" class="corner-node"/>
-    <circle cx="1144" cy="36" r="2" fill="#00f0ff" class="corner-node"/>
-    <circle cx="56" cy="408" r="2" fill="#00f0ff" class="corner-node"/>
-    <circle cx="1144" cy="408" r="2" fill="#00f0ff" class="corner-node"/>
+    <circle cx="56" cy="36" r="1.5" fill="#8b949e" class="corner-node"/>
+    <circle cx="1144" cy="36" r="1.5" fill="#8b949e" class="corner-node"/>
+    <circle cx="56" cy="408" r="1.5" fill="#8b949e" class="corner-node"/>
+    <circle cx="1144" cy="408" r="1.5" fill="#8b949e" class="corner-node"/>
   </g>
   `;
 }
@@ -92,8 +92,8 @@ function generateClosingAccents(): string {
     }
   </style>
   <g id="closing-accents">
-    <circle cx="1144" cy="34" r="2.5" fill="#00f0ff" class="beacon-light"/>
-    <circle cx="1144" cy="34" r="7" fill="none" stroke="#00f0ff" stroke-opacity="0.5" stroke-width="0.8" class="beacon-light"/>
+    <circle cx="1144" cy="34" r="2" fill="#ff5500" class="beacon-light"/>
+    <circle cx="1144" cy="34" r="6" fill="none" stroke="#ff5500" stroke-opacity="0.4" stroke-width="0.6" class="beacon-light"/>
   </g>
   `;
 }
@@ -106,7 +106,7 @@ for (const scene of scenes) {
       fonts,
     });
 
-    const bgRegex = /(?:<rect|<path)[^>]*fill="#(?:080808|070a0f)"[^>]*\/>/;
+    const bgRegex = /(?:<rect|<path)[^>]*fill="#[0-9a-fA-F]{6}"[^>]*\/>/;
 
     // Inject animated visual layer into hero.svg
     if (scene.name === "hero" && bgRegex.test(svg)) {

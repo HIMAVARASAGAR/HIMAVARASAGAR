@@ -1,285 +1,183 @@
 /**
- * High-Precision Electromagnetic & Signal Geometry (Hero Scene).
+ * Generative Signal Strata & Topographic Waveform Landscape.
  *
- * Designed with high visible contrast and dual-layer animation:
- * - Native SVG SMIL (<animateTransform>, <animate>) for rock-solid 60 FPS
- *   rendering across all browsers (including Safari and GitHub Camo).
- * - Complementary CSS keyframes for smooth hardware-accelerated transitions.
- * - Restrained electric phosphor cyan (#00f0ff) accent on active telemetry nodes.
- * - Higher calibrated opacities (0.12 to 0.55) so geometry visibly lifts off dark backgrounds.
+ * Inspired by pulsar radio frequency profiles (CP 1919), seismic topography,
+ * and high-end Swiss architectural graphic design (Carsten Nicolai / Peter Saville).
+ *
+ * Replaces cliché neon radar/antenna circles with a layered 3D wave terrain:
+ * - 24 stacked continuous contour ribbons with physical occlusion fill.
+ * - Massive typographic negative space on the left; rich organic density on the right.
+ * - Warm titanium/silver palette with a single tactile cadmium ember (#ff5500) mark.
+ * - Zero gamer neon. Zero corny HUD text. Pure sculptural generative art.
  */
 
 const W = 1200;
 const H = 630;
 
-function seeded(s: number) {
-  return () => {
-    s = (s * 16807 + 0) % 2147483647;
-    return (s - 1) / 2147483646;
-  };
-}
-
 export function generateAnimatedHeroLayer(): string {
   const p: string[] = [];
 
-  // ── CSS & SMIL Definitions ─────────────────────────────────────────
+  // ── Animation & Styling ─────────────────────────────────────────────
   p.push(`<style>
-    @keyframes sweepGlow {
-      0% { transform: translateX(640px); opacity: 0; }
-      5% { opacity: 0.65; }
-      85% { opacity: 0.55; }
-      100% { transform: translateX(1150px); opacity: 0; }
+    @keyframes terrainScan {
+      0% { transform: translateX(420px); opacity: 0; }
+      4% { opacity: 0.7; }
+      85% { opacity: 0.6; }
+      100% { transform: translateX(1140px); opacity: 0; }
     }
-    @keyframes packetFlow {
-      from { stroke-dashoffset: 400; }
-      to { stroke-dashoffset: 0; }
+    @keyframes ridgeBreathe {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-3px); }
     }
-    @keyframes carrierFlow {
-      from { stroke-dashoffset: 600; }
-      to { stroke-dashoffset: 0; }
+    @keyframes emberPulse {
+      0%, 100% { opacity: 0.4; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.15); }
     }
-    @keyframes diodeGlow {
-      0%, 100% { opacity: 0.35; transform: scale(0.85); }
-      50% { opacity: 1; transform: scale(1.2); }
+    .terrain-beam {
+      animation: terrainScan 9s cubic-bezier(0.25, 0.05, 0.25, 0.95) infinite;
     }
-    .sweep-beam {
-      animation: sweepGlow 7s cubic-bezier(0.3, 0.05, 0.35, 0.95) infinite;
+    .ridge-group {
+      animation: ridgeBreathe 6s ease-in-out infinite;
     }
-    .packet-cyan {
-      stroke-dasharray: 36 140;
-      animation: packetFlow 4.5s linear infinite;
-    }
-    .carrier-white {
-      stroke-dasharray: 24 100;
-      animation: carrierFlow 3.8s linear infinite;
-    }
-    .diode-cyan {
-      transform-origin: 860px 190px;
-      animation: diodeGlow 2s ease-in-out infinite;
+    .ember-node {
+      transform-origin: 430px 48px;
+      animation: emberPulse 2.8s ease-in-out infinite;
     }
   </style>`);
 
-  p.push(`<g id="hero-instrumentation-plate">`);
+  p.push(`<g id="hero-signal-strata">`);
 
-  // ── Gradients & Markers ────────────────────────────────────────────
+  // ── Gradients & Surfaces ───────────────────────────────────────────
   p.push(`<defs>
-    <!-- Slate gradient surface so the card distinctly lifts off GitHub dark mode (#0d1117) -->
-    <linearGradient id="plateSurface" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0c1118"/>
-      <stop offset="60%" stop-color="#070a0f"/>
-      <stop offset="100%" stop-color="#040609"/>
+    <!-- Deep carbon slate surface with subtle vignette -->
+    <linearGradient id="carbonSurface" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e1014"/>
+      <stop offset="50%" stop-color="#0b0d11"/>
+      <stop offset="100%" stop-color="#08090c"/>
     </linearGradient>
 
-    <!-- Radar scanning beam gradient with phosphor cyan tint -->
-    <linearGradient id="radarBeamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0"/>
-      <stop offset="75%" stop-color="#00f0ff" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#00f0ff" stop-opacity="0.28"/>
+    <!-- Warm ember beam gradient -->
+    <linearGradient id="scanBeamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff5500" stop-opacity="0"/>
+      <stop offset="85%" stop-color="#ff5500" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.35"/>
     </linearGradient>
 
-    <!-- Focal electromagnetic aura -->
-    <radialGradient id="focalAura" cx="860" cy="190" r="320" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.09"/>
-      <stop offset="35%" stop-color="#00f0ff" stop-opacity="0.025"/>
-      <stop offset="70%" stop-color="#ffffff" stop-opacity="0.01"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
+    <!-- Ribbon occlusion gradient: dark base so waves occlude each other cleanly -->
+    <linearGradient id="ribbonFill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f1217"/>
+      <stop offset="100%" stop-color="#08090c"/>
+    </linearGradient>
   </defs>`);
 
-  // ── 0. Outer Architectural Plate Framing ───────────────────────────
-  // Outer plate container with technical border
-  p.push(`<rect x="1" y="1" width="${W - 2}" height="${H - 2}" rx="6" fill="url(#plateSurface)" stroke="#1a2332" stroke-width="1.2"/>`);
-  p.push(`<rect x="12" y="12" width="${W - 24}" height="${H - 24}" rx="4" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.8"/>`);
+  // ── 0. Architectural Frame & Registration ───────────────────────────
+  // Outer plate container with crisp titanium border
+  p.push(`<rect x="1" y="1" width="${W - 2}" height="${H - 2}" rx="6" fill="url(#carbonSurface)" stroke="#1d222a" stroke-width="1.2"/>`);
+  p.push(`<rect x="16" y="16" width="${W - 32}" height="${H - 32}" rx="3" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.7"/>`);
 
-  // Outer ambient aura
-  p.push(`<circle cx="860" cy="190" r="320" fill="url(#focalAura)"/>`);
-
-  // Precision corner brackets
-  const bLen = 26;
-  const corners = [
-    { x: 24, y: 24, dx: 1, dy: 1 },
-    { x: W - 24, y: 24, dx: -1, dy: 1 },
-    { x: 24, y: H - 24, dx: 1, dy: -1 },
-    { x: W - 24, y: H - 24, dx: -1, dy: -1 },
+  // Precision architectural registration marks (+)
+  const regMarks = [
+    { x: 36, y: 36 },
+    { x: W - 36, y: 36 },
+    { x: 36, y: H - 36 },
+    { x: W - 36, y: H - 36 },
+    { x: 420, y: 36 },
+    { x: 420, y: H - 36 },
   ];
-  for (const c of corners) {
-    p.push(`<line x1="${c.x}" y1="${c.y}" x2="${c.x + c.dx * bLen}" y2="${c.y}" stroke="#00f0ff" stroke-opacity="0.6" stroke-width="1.2"/>`);
-    p.push(`<line x1="${c.x}" y1="${c.y}" x2="${c.x}" y2="${c.y + c.dy * bLen}" stroke="#00f0ff" stroke-opacity="0.6" stroke-width="1.2"/>`);
+  for (const m of regMarks) {
+    p.push(`<line x1="${m.x - 5}" y1="${m.y}" x2="${m.x + 5}" y2="${m.y}" stroke="#8b949e" stroke-opacity="0.45" stroke-width="0.7"/>`);
+    p.push(`<line x1="${m.x}" y1="${m.y - 5}" x2="${m.x}" y2="${m.y + 5}" stroke="#8b949e" stroke-opacity="0.45" stroke-width="0.7"/>`);
   }
 
-  // ── 1. Coordinate Grid & Measurement Matrix ────────────────────────
-  {
-    const gx = 640, gy = 48, gw = 512, gh = 340, cell = 46.5;
-
-    // Measurement sub-grid lines (visible contrast: 0.05 to 0.12)
-    p.push(`<g id="measurement-grid">`);
-    for (let x = gx; x <= gx + gw + 1; x += cell) {
-      const isBorder = Math.abs(x - gx) < 1 || Math.abs(x - (gx + gw)) < cell / 2;
-      const op = isBorder ? 0.22 : 0.06;
-      p.push(`<line x1="${x.toFixed(1)}" y1="${gy}" x2="${x.toFixed(1)}" y2="${gy + gh}" stroke="rgba(255,255,255,${op})" stroke-width="${isBorder ? 0.8 : 0.5}"/>`);
-    }
-    for (let y = gy; y <= gy + gh + 1; y += cell) {
-      const isBorder = Math.abs(y - gy) < 1 || Math.abs(y - (gy + gh)) < cell / 2;
-      const op = isBorder ? 0.22 : 0.06;
-      p.push(`<line x1="${gx}" y1="${y.toFixed(1)}" x2="${gx + gw}" y2="${y.toFixed(1)}" stroke="rgba(255,255,255,${op})" stroke-width="${isBorder ? 0.8 : 0.5}"/>`);
-    }
-    p.push(`</g>`);
-
-    // Polar radial lines projecting from Antenna Port 1 (860, 190)
-    const angles = [0, 30, 45, 60, 75, 90, 120, 150, 210, 240, 270, 300, 330];
-    for (const deg of angles) {
-      const rad = (deg * Math.PI) / 180;
-      const len = 340;
-      const x2 = 860 + len * Math.cos(rad);
-      const y2 = 190 + len * Math.sin(rad);
-      if (x2 >= 520 && x2 <= 1180 && y2 >= 20 && y2 <= 610) {
-        p.push(`<line x1="860" y1="190" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="rgba(255,255,255,0.08)" stroke-width="0.5" stroke-dasharray="3 6"/>`);
-      }
-    }
-
-    // Polar distance rings (r = 70, 140, 210, 280)
-    for (const r of [70, 140, 210, 280]) {
-      p.push(`<circle cx="860" cy="190" r="${r}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.5" stroke-dasharray="4 7"/>`);
-    }
-
-    // Precision crosshairs at focal points
-    p.push(`<line x1="844" y1="190" x2="876" y2="190" stroke="#00f0ff" stroke-opacity="0.7" stroke-width="0.8"/>`);
-    p.push(`<line x1="860" y1="174" x2="860" y2="206" stroke="#00f0ff" stroke-opacity="0.7" stroke-width="0.8"/>`);
-    p.push(`<circle cx="860" cy="190" r="18" fill="none" stroke="#00f0ff" stroke-opacity="0.25" stroke-width="0.5" stroke-dasharray="2 3"/>`);
-
-    p.push(`<line x1="960" y1="260" x2="980" y2="260" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>`);
-    p.push(`<line x1="970" y1="250" x2="970" y2="270" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>`);
-
-    // Radar scanning beam with trailing phosphor cyan glow
-    p.push(`<g class="sweep-beam">`);
-    p.push(`<line x1="0" y1="${gy}" x2="0" y2="${gy + gh}" stroke="#00f0ff" stroke-opacity="0.8" stroke-width="1.2"/>`);
-    p.push(`<rect x="-36" y="${gy}" width="36" height="${gh}" fill="url(#radarBeamGrad)"/>`);
-    p.push(`</g>`);
+  // Millimeter scale ticks along top margin
+  for (let x = 420; x <= 1140; x += 12) {
+    const isMajor = (x - 420) % 60 === 0;
+    const len = isMajor ? 6 : 3;
+    const op = isMajor ? 0.35 : 0.12;
+    p.push(`<line x1="${x}" y1="36" x2="${x}" y2="${36 + len}" stroke="#8b949e" stroke-opacity="${op}" stroke-width="0.5"/>`);
   }
 
-  // ── 2. MIMO Dual-Array Electromagnetic Radiation Fringe Field ─────
-  {
-    // Element A: Radiation wave pattern (22 ellipses) with SMIL continuous rotation
-    p.push(`<g id="mimo-elem-a">`);
-    p.push(`<animateTransform attributeName="transform" type="rotate" from="0 860 190" to="360 860 190" dur="68s" repeatCount="indefinite"/>`);
-    for (let i = 0; i < 22; i++) {
-      const r = 24 + i * 22;
-      const rx = r;
-      const ry = r * (0.58 + 0.42 * Math.sin(i * 0.38 + 0.2));
-      const t = i / 22;
-      const op = Math.max(0.04, 0.32 * Math.exp(-Math.pow((t - 0.28) * 3, 2)));
-      const rot = i * 3.6;
-      p.push(
-        `<ellipse cx="860" cy="190" rx="${rx.toFixed(1)}" ry="${ry.toFixed(1)}" ` +
-        `fill="none" stroke="rgba(255,255,255,${op.toFixed(3)})" stroke-width="${i % 4 === 0 ? 0.8 : 0.5}" ` +
-        `transform="rotate(${rot.toFixed(1)} 860 190)"/>`
-      );
+  // Tactile Cadmium Ember registration dot (top right of text boundary)
+  p.push(`<g class="ember-node">`);
+  p.push(`<circle cx="420" cy="48" r="2.5" fill="#ff5500"/>`);
+  p.push(`<circle cx="420" cy="48" r="6" fill="none" stroke="#ff5500" stroke-opacity="0.3" stroke-width="0.6"/>`);
+  p.push(`</g>`);
+
+  // ── 1. Generative 3D Topographic Strata (24 Layered Ribbons) ──────
+  p.push(`<g id="topographic-strata" class="ridge-group">`);
+
+  const numLines = 26;
+  const startY = 95;
+  const endY = 540;
+  const stepY = (endY - startY) / (numLines - 1);
+
+  const startX = 420;
+  const endX = 1148;
+  const stepX = 5;
+
+  for (let i = 0; i < numLines; i++) {
+    const baseY = startY + i * stepY;
+    const pathSegments: string[] = [];
+
+    // Begin path at bottom-left corner of this ribbon slice for solid occlusion
+    pathSegments.push(`M ${startX} ${baseY + 45}`);
+    pathSegments.push(`L ${startX} ${baseY}`);
+
+    for (let x = startX; x <= endX; x += stepX) {
+      const t = (x - startX) / (endX - startX);
+
+      // Dual Gaussian envelopes for natural harmonic peaks
+      const c1 = 0.52;
+      const w1 = 0.22;
+      const env1 = Math.exp(-Math.pow((t - c1) / w1, 2));
+
+      const c2 = 0.78;
+      const w2 = 0.18;
+      const env2 = Math.exp(-Math.pow((t - c2) / w2, 2)) * 0.65;
+
+      const env = Math.max(env1, env2);
+
+      // Multi-frequency harmonic resonance
+      const phase = i * 0.38;
+      const wave1 = Math.sin(t * Math.PI * 5.2 + phase);
+      const wave2 = Math.sin(t * Math.PI * 10.8 - phase * 1.3) * 0.45;
+      const wave3 = Math.cos(t * Math.PI * 18.0 + phase * 0.7) * 0.22;
+      const compositeWave = wave1 + wave2 + wave3;
+
+      // Peak amplitude scaling with vertical layer position
+      const layerScale = Math.sin((i / numLines) * Math.PI);
+      const maxAmp = (62 + 22 * layerScale) * Math.max(0, compositeWave * 0.6 + 0.4);
+
+      const y = baseY - env * maxAmp;
+      pathSegments.push(`L ${x.toFixed(1)} ${y.toFixed(1)}`);
     }
-    p.push(`</g>`);
 
-    // Element B: Coupled radiating element (16 ellipses) counter-rotating
-    p.push(`<g id="mimo-elem-b">`);
-    p.push(`<animateTransform attributeName="transform" type="rotate" from="360 970 260" to="0 970 260" dur="52s" repeatCount="indefinite"/>`);
-    for (let i = 0; i < 16; i++) {
-      const r = 36 + i * 26;
-      const rx = r;
-      const ry = r * (0.62 + 0.38 * Math.sin(i * 0.42 + 0.3));
-      const t = i / 16;
-      const op = Math.max(0.03, 0.24 * Math.exp(-Math.pow((t - 0.3) * 3, 2)));
-      const rot = 18 + i * 4.6;
-      p.push(
-        `<ellipse cx="970" cy="260" rx="${rx.toFixed(1)}" ry="${ry.toFixed(1)}" ` +
-        `fill="none" stroke="rgba(255,255,255,${op.toFixed(3)})" stroke-width="0.5" ` +
-        `transform="rotate(${rot.toFixed(1)} 970 260)"/>`
-      );
-    }
-    p.push(`</g>`);
+    pathSegments.push(`L ${endX} ${baseY}`);
+    pathSegments.push(`L ${endX} ${baseY + 45}`);
+    pathSegments.push(`Z`);
 
-    // Calibrated rotating antenna reticle rings at Port 1
-    p.push(`<g id="reticle-spin">`);
-    p.push(`<animateTransform attributeName="transform" type="rotate" from="0 860 190" to="360 860 190" dur="24s" repeatCount="indefinite"/>`);
-    p.push(`<circle cx="860" cy="190" r="32" fill="none" stroke="#00f0ff" stroke-opacity="0.25" stroke-width="0.8" stroke-dasharray="4 6"/>`);
-    p.push(`<circle cx="860" cy="190" r="48" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="0.5" stroke-dasharray="2 10"/>`);
-    p.push(`</g>`);
+    const pathData = pathSegments.join(" ");
 
-    // Blinking telemetry port diode (bright cyan + white core)
-    p.push(`<g class="diode-cyan">`);
-    p.push(`<circle cx="860" cy="190" r="7.5" fill="none" stroke="#00f0ff" stroke-opacity="0.5" stroke-width="0.8"/>`);
-    p.push(`<circle cx="860" cy="190" r="3" fill="#00f0ff"/>`);
-    p.push(`<circle cx="860" cy="190" r="1.2" fill="#ffffff"/>`);
-    p.push(`</g>`);
+    // Layer stroke luminosity: foreground crests are brighter silver; background is subtle
+    const depthRatio = i / numLines;
+    const strokeOp = Math.max(0.12, 0.15 + 0.65 * Math.pow(depthRatio, 1.4));
+    const strokeWidth = i % 5 === 0 ? 0.85 : 0.55;
+
+    // Solid occlusion fill covers the wave behind it
+    p.push(`<path d="${pathData}" fill="url(#ribbonFill)" stroke="rgba(240, 244, 252, ${strokeOp.toFixed(3)})" stroke-width="${strokeWidth}"/>`);
   }
 
-  // ── 3. High-Frequency RF Signal Waveforms ──────────────────────────
-  {
-    // Waveform A: Damped RF envelope crossing mid-canvas
-    const pts1: string[] = [];
-    for (let x = 36; x <= 740; x += 1.5) {
-      const t = (x - 36) / 704;
-      const amp = 56 * Math.exp(-t * 1.5) * Math.sin(t * Math.PI * 8.5);
-      const y = 330 + amp;
-      pts1.push(`${x.toFixed(1)},${y.toFixed(1)}`);
-    }
-    const poly1 = pts1.join(" ");
-    // Baseline trace
-    p.push(`<polyline points="${poly1}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.7"/>`);
-    // High-contrast electric cyan traveling packet
-    p.push(`<polyline points="${poly1}" fill="none" stroke="#00f0ff" stroke-width="1.4" class="packet-cyan"/>`);
+  p.push(`</g>`);
 
-    // Waveform B: High-frequency carrier wave (lower section)
-    const pts2: string[] = [];
-    for (let x = 120; x <= 1140; x += 1.5) {
-      const t = (x - 120) / 1020;
-      const freq = 4 + 12 * t;
-      const envelope = Math.sin(t * Math.PI);
-      const amp = 22 * envelope;
-      const y = 496 + amp * Math.sin(t * Math.PI * freq);
-      pts2.push(`${x.toFixed(1)},${y.toFixed(1)}`);
-    }
-    const poly2 = pts2.join(" ");
-    // Baseline trace
-    p.push(`<polyline points="${poly2}" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>`);
-    // High-contrast white traveling packet
-    p.push(`<polyline points="${poly2}" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.0" class="carrier-white"/>`);
+  // ── 2. Traveling Vertical Precision Beam ────────────────────────────
+  p.push(`<g class="terrain-beam">`);
+  p.push(`<line x1="0" y1="80" x2="0" y2="550" stroke="#ff5500" stroke-opacity="0.65" stroke-width="0.8"/>`);
+  p.push(`<rect x="-24" y="80" width="24" height="470" fill="url(#scanBeamGrad)"/>`);
+  p.push(`</g>`);
 
-    // Waveguide propagation arcs
-    p.push(`<path d="M 40,140 C 200,105 460,190 860,188" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.7"/>`);
-    p.push(`<path d="M 100,200 C 320,170 550,260 760,250" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>`);
-
-    // Diagonal calibrated line with division ticks
-    const x1 = 940, y1 = 52, x2 = 1150, y2 = 568;
-    p.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>`);
-    const dx = x2 - x1, dy = y2 - y1;
-    const len = Math.sqrt(dx * dx + dy * dy);
-    const nx = -dy / len, ny = dx / len;
-    for (let i = 0; i <= 14; i++) {
-      const t = i / 14;
-      const px = x1 + dx * t;
-      const py = y1 + dy * t;
-      const tl = i % 5 === 0 ? 10 : 4;
-      p.push(
-        `<line x1="${(px - nx * tl).toFixed(1)}" y1="${(py - ny * tl).toFixed(1)}" ` +
-        `x2="${(px + nx * tl).toFixed(1)}" y2="${(py + ny * tl).toFixed(1)}" ` +
-        `stroke="rgba(255,255,255,0.12)" stroke-width="0.5"/>`
-      );
-    }
-  }
-
-  // ── 4. Shimmer Point Scatter ───────────────────────────────────────
-  {
-    const rand = seeded(77);
-    for (let i = 0; i < 45; i++) {
-      const x = 580 + rand() * 560;
-      const y = 30 + rand() * 560;
-      const dist = Math.sqrt((x - 860) ** 2 + (y - 190) ** 2);
-      if (dist > 340) continue;
-      const r = 0.5 + rand() * 1.1;
-      const isCyan = rand() > 0.75;
-      const fill = isCyan ? "#00f0ff" : "#ffffff";
-      const op = 0.08 + rand() * 0.22;
-      p.push(`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r.toFixed(1)}" fill="${fill}" fill-opacity="${op.toFixed(2)}"/>`);
-    }
-  }
+  // ── 3. Structural Dividing Axis ─────────────────────────────────────
+  // Clean vertical datum line separating typography column from terrain
+  p.push(`<line x1="420" y1="36" x2="420" y2="${H - 36}" stroke="#1d222a" stroke-width="0.8" stroke-dasharray="4 6"/>`);
 
   p.push(`</g>`);
   return p.join("\n");

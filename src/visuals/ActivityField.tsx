@@ -97,32 +97,32 @@ export function generateAnimatedActivityLayer(
       88% { opacity: 0.45; }
       100% { transform: translateX(${startX + gridWidth + 20}px); opacity: 0; }
     }
-    @keyframes activeGlowPulse {
-      0%, 100% { filter: drop-shadow(0 0 1px #00f0ff); opacity: 0.85; }
-      50% { filter: drop-shadow(0 0 5px #00f0ff); opacity: 1; }
+    @keyframes activeWhitePulse {
+      0%, 100% { opacity: 0.90; filter: drop-shadow(0 0 1px rgba(255,255,255,0.4)); }
+      50% { opacity: 1; filter: drop-shadow(0 0 4px rgba(255,255,255,0.95)); }
     }
     .sweep-bar {
-      animation: calendarSweep 7.5s cubic-bezier(0.35, 0.05, 0.35, 0.95) infinite;
+      animation: calendarSweep 8s cubic-bezier(0.35, 0.05, 0.35, 0.95) infinite;
     }
     .node-high {
-      animation: activeGlowPulse 2.4s ease-in-out infinite;
+      animation: activeWhitePulse 2.6s ease-in-out infinite;
     }
   </style>`);
 
   p.push(`<g id="animated-activity-layer">`);
 
-  // Linear gradient for sweep line with cyan phosphor tint
+  // Linear gradient for sweep line with titanium/ember tone
   p.push(`<defs>
     <linearGradient id="calSweepGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0"/>
-      <stop offset="80%" stop-color="#00f0ff" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#00f0ff" stop-opacity="0.25"/>
+      <stop offset="0%" stop-color="#ff5500" stop-opacity="0"/>
+      <stop offset="85%" stop-color="#ff5500" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.25"/>
     </linearGradient>
   </defs>`);
 
   // Axis guidelines
-  p.push(`<line x1="${startX - 20}" y1="${startY - 26}" x2="${startX + gridWidth + 20}" y2="${startY - 26}" stroke="#16202c" stroke-width="0.8"/>`);
-  p.push(`<line x1="${startX - 20}" y1="${startY + gridHeight + 20}" x2="${startX + gridWidth + 20}" y2="${startY + gridHeight + 20}" stroke="#16202c" stroke-width="0.8"/>`);
+  p.push(`<line x1="${startX - 20}" y1="${startY - 26}" x2="${startX + gridWidth + 20}" y2="${startY - 26}" stroke="#1d222a" stroke-width="0.8"/>`);
+  p.push(`<line x1="${startX - 20}" y1="${startY + gridHeight + 20}" x2="${startX + gridWidth + 20}" y2="${startY + gridHeight + 20}" stroke="#1d222a" stroke-width="0.8"/>`);
 
   // Month labels: place exactly above the week column where a new month starts
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -145,8 +145,8 @@ export function generateAnimatedActivityLayer(
 
     if (monthToLabel && (wIdx - lastLabeledCol) >= 3) {
       const x = startX + wIdx * (cellSize + gap);
-      p.push(`<text x="${x}" y="${startY - 12}" font-family="Inter,sans-serif" font-size="8.5" fill="#50627a" font-weight="600" letter-spacing="0.5">${monthToLabel.toUpperCase()}</text>`);
-      p.push(`<line x1="${x}" y1="${startY - 8}" x2="${x}" y2="${startY - 4}" stroke="#1a2332" stroke-width="0.8"/>`);
+      p.push(`<text x="${x}" y="${startY - 12}" font-family="Inter,sans-serif" font-size="8.5" fill="#6e7681" font-weight="600" letter-spacing="0.5">${monthToLabel.toUpperCase()}</text>`);
+      p.push(`<line x1="${x}" y1="${startY - 8}" x2="${x}" y2="${startY - 4}" stroke="#1d222a" stroke-width="0.8"/>`);
       lastLabeledCol = wIdx;
     }
   });
@@ -156,7 +156,7 @@ export function generateAnimatedActivityLayer(
   for (let d = 0; d < 7; d++) {
     if (dayLabels[d]) {
       const y = startY + d * (cellSize + gap) + cellSize * 0.75;
-      p.push(`<text x="${startX - 14}" y="${y}" font-family="Inter,sans-serif" font-size="8" fill="#50627a" text-anchor="end" font-weight="500">${dayLabels[d]}</text>`);
+      p.push(`<text x="${startX - 14}" y="${y}" font-family="Inter,sans-serif" font-size="8" fill="#6e7681" text-anchor="end" font-weight="500">${dayLabels[d]}</text>`);
     }
   }
 
@@ -171,26 +171,26 @@ export function generateAnimatedActivityLayer(
 
       if (count > 0) {
         if (level >= 3 || count >= 4) {
-          // Intense activity: phosphor cyan glowing
-          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="#00f0ff" class="node-high"/>`);
+          // Intense activity: brilliant paper white
+          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="#ffffff" class="node-high"/>`);
         } else if (level === 2 || count >= 2) {
-          // Moderate activity: soft cyan
-          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(0, 240, 255, 0.75)"/>`);
+          // Moderate activity: luminous silver
+          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(240, 244, 252, 0.75)"/>`);
         } else {
-          // Low activity: cool white
-          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(255, 255, 255, 0.45)"/>`);
+          // Low activity: cool titanium
+          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(240, 244, 252, 0.40)"/>`);
         }
       } else {
-        // Zero-commit day: subtle precision coordinate cell with visible border
-        p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>`);
+        // Zero-commit day: subtle precision coordinate cell
+        p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>`);
       }
     });
   });
 
-  // Oscilloscope sweep beam
+  // Oscilloscope sweep beam with warm ember edge
   p.push(`<g class="sweep-bar">`);
-  p.push(`<line x1="0" y1="${startY - 14}" x2="0" y2="${startY + gridHeight + 14}" stroke="#00f0ff" stroke-opacity="0.8" stroke-width="1.0"/>`);
-  p.push(`<rect x="-28" y="${startY - 14}" width="28" height="${gridHeight + 28}" fill="url(#calSweepGrad)"/>`);
+  p.push(`<line x1="0" y1="${startY - 14}" x2="0" y2="${startY + gridHeight + 14}" stroke="#ff5500" stroke-opacity="0.65" stroke-width="0.8"/>`);
+  p.push(`<rect x="-24" y="${startY - 14}" width="24" height="${gridHeight + 28}" fill="url(#calSweepGrad)"/>`);
   p.push(`</g>`);
 
   p.push(`</g>`);

@@ -6,13 +6,13 @@ export function Closing() {
         flexDirection: "column",
         width: "1200px",
         height: "240px",
-        backgroundColor: "#070a0f",
+        backgroundColor: "#0c0e12",
         color: "#f2f2f2",
         fontFamily: "Inter",
         padding: "32px 56px 28px 56px",
         position: "relative",
         justifyContent: "space-between",
-        border: "1px solid #1a2332",
+        border: "1px solid #1d222a",
         borderRadius: "6px",
       }}
     >
@@ -36,7 +36,7 @@ export function Closing() {
           <span
             style={{
               fontSize: "11px",
-              color: "#50627a",
+              color: "#6e7681",
               letterSpacing: "0.04em",
             }}
           >
@@ -46,7 +46,7 @@ export function Closing() {
             style={{
               fontSize: "12px",
               fontWeight: 600,
-              color: "#00f0ff",
+              color: "#ff5500",
               letterSpacing: "0.08em",
             }}
           >
@@ -58,7 +58,7 @@ export function Closing() {
             display: "flex",
             width: "100%",
             height: "1px",
-            backgroundColor: "#16202c",
+            backgroundColor: "#1d222a",
           }}
         />
       </div>
@@ -85,7 +85,7 @@ export function Closing() {
             style={{
               fontSize: "16px",
               fontWeight: 600,
-              color: "#e2f9ff",
+              color: "#e2e8f0",
               letterSpacing: "-0.2px",
             }}
           >
@@ -94,7 +94,7 @@ export function Closing() {
           <span
             style={{
               fontSize: "11px",
-              color: "#50627a",
+              color: "#6e7681",
             }}
           >
             Electronics & Communication Engineering
@@ -112,17 +112,17 @@ export function Closing() {
           <span
             style={{
               fontSize: "11px",
-              color: "#8092a8",
+              color: "#8b949e",
               letterSpacing: "0.02em",
             }}
           >
             github.com/HIMAVARASAGAR
           </span>
-          <span style={{ fontSize: "11px", color: "#1a2332" }}>·</span>
+          <span style={{ fontSize: "11px", color: "#1d222a" }}>·</span>
           <span
             style={{
               fontSize: "11px",
-              color: "#8092a8",
+              color: "#8b949e",
               letterSpacing: "0.02em",
             }}
           >
