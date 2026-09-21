@@ -37,7 +37,7 @@ await fs.mkdir("src/generated", { recursive: true });
 
 const scenes: { name: string; element: React.JSX.Element; width: number; height: number }[] = [
   { name: "hero", element: <Hero />, width: 1200, height: 630 },
-  { name: "projects", element: <Projects />, width: 1200, height: 520 },
+  { name: "projects", element: <Projects />, width: 1200, height: 400 },
   { name: "activity", element: <Activity />, width: 1200, height: 320 },
   { name: "closing", element: <Closing />, width: 1200, height: 240 },
 ];

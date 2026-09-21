@@ -1,32 +1,28 @@
 export function Projects() {
   const repos = [
     {
-      id: "01",
-      domain: "SYSTEM // ARCHITECTURE",
-      name: "universal-cognitive-engine",
-      scope: "Google ADK · Multi-Agent Orchestration · Reasoning Subsystems",
-      telemetry: "KERNEL: ACTIVE // TARGET: MULTI-AGENT",
+      name: "Soteria",
+      lang: "TypeScript",
     },
     {
-      id: "02",
-      domain: "HARDWARE // ELECTROMAGNETICS",
-      name: "graphene-thz-mimo",
-      scope: "2-Element MIMO Array · ML Regression Tuning · THz Band",
-      telemetry: "RESONANCE: TUNED // ARRAY: 2-PORT",
+      name: "wow-gesture-recognition",
+      lang: "Python",
     },
     {
-      id: "03",
-      domain: "PACKAGE // RUNTIME",
-      name: "csage",
-      scope: "Public Python Engine · PyPI Distribution · Standalone Core",
-      telemetry: "REGISTRY: PYPI // RUNTIME: PYTHON 3.x",
+      name: "codegraphview",
+      lang: "Python",
     },
     {
-      id: "04",
-      domain: "TELEMETRY // PIPELINES",
-      name: "esp32-telemetry",
-      scope: "UDP Stream Pipeline · n8n Automation · Thermal Testing",
-      telemetry: "TRANSPORT: UDP // PIPELINE: N8N LIVE",
+      name: "Restaurent_chatbot",
+      lang: "JavaScript",
+    },
+    {
+      name: "My-Portfolio",
+      lang: "HTML",
+    },
+    {
+      name: "glsl-fragment-shaders",
+      lang: "",
     },
   ];
 
@@ -36,7 +32,7 @@ export function Projects() {
         display: "flex",
         flexDirection: "column",
         width: "1200px",
-        height: "520px",
+        height: "400px",
         backgroundColor: "#080808",
         color: "#f2f2f2",
         fontFamily: "Inter",
@@ -45,7 +41,7 @@ export function Projects() {
         justifyContent: "space-between",
       }}
     >
-      {/* ── Section Header ── */}
+      {/* Header */}
       <div
         style={{
           display: "flex",
@@ -54,431 +50,106 @@ export function Projects() {
           width: "100%",
         }}
       >
-        <div style={{ display: "flex", alignItems: "baseline", gap: "20px" }}>
-          <span
-            style={{
-              fontSize: "11px",
-              fontWeight: 600,
-              letterSpacing: "0.22em",
-              color: "#e0e0e0",
-            }}
-          >
-            SYSTEMS DIRECTORY
-          </span>
-          <span
-            style={{
-              fontSize: "10px",
-              fontWeight: 400,
-              letterSpacing: "0.12em",
-              color: "#444",
-            }}
-          >
-            PUBLIC REPOSITORIES
-          </span>
-        </div>
-
-        <div style={{ display: "flex", alignItems: "baseline", gap: "12px" }}>
-          <span
-            style={{
-              fontSize: "10px",
-              fontWeight: 400,
-              letterSpacing: "0.14em",
-              color: "#444",
-            }}
-          >
-            SECTION
-          </span>
-          <span
-            style={{
-              fontSize: "12px",
-              fontWeight: 600,
-              color: "#777",
-              letterSpacing: "0.08em",
-            }}
-          >
-            02
-          </span>
-        </div>
+        <span
+          style={{
+            fontSize: "11px",
+            fontWeight: 600,
+            letterSpacing: "0.18em",
+            color: "#999",
+          }}
+        >
+          REPOSITORIES
+        </span>
+        <span
+          style={{
+            fontSize: "11px",
+            fontWeight: 400,
+            letterSpacing: "0.14em",
+            color: "#444",
+          }}
+        >
+          02
+        </span>
       </div>
 
-      {/* ── Top Framing Rule ── */}
+      {/* Top rule */}
       <div
         style={{
           display: "flex",
           width: "100%",
           height: "1px",
           backgroundColor: "#1c1c1c",
-          marginTop: "16px",
+          marginTop: "14px",
         }}
       />
 
-      {/* ── 2x2 Technical Matrix ── */}
+      {/* Repo list */}
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           flexGrow: 1,
-          justifyContent: "space-around",
-          paddingTop: "24px",
-          paddingBottom: "20px",
+          justifyContent: "center",
+          gap: "0px",
         }}
       >
-        {/* Row 1 */}
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "space-between",
-          }}
-        >
-          {/* Item 01 */}
+        {repos.map((repo, i) => (
           <div
+            key={repo.name}
             style={{
               display: "flex",
-              flexDirection: "column",
-              width: "510px",
-              paddingRight: "36px",
+              alignItems: "baseline",
+              justifyContent: "space-between",
+              width: "100%",
+              padding: "11px 0",
+              borderBottom: i < repos.length - 1 ? "1px solid #141414" : "none",
             }}
           >
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-between",
                 alignItems: "baseline",
-                width: "100%",
+                gap: "16px",
               }}
             >
               <span
                 style={{
                   fontSize: "10px",
-                  color: "#444",
-                  letterSpacing: "0.15em",
-                  fontWeight: 600,
-                }}
-              >
-                01 // {repos[0].domain}
-              </span>
-              <span
-                style={{
-                  fontSize: "9px",
                   color: "#333",
                   fontFamily: "monospace",
+                  letterSpacing: "0.05em",
+                  width: "20px",
                 }}
               >
-                [PUBLIC]
+                {String(i + 1).padStart(2, "0")}
               </span>
-            </div>
-
-            <span
-              style={{
-                fontSize: "20px",
-                fontWeight: 600,
-                color: "#e8e8e8",
-                letterSpacing: "-0.4px",
-                marginTop: "10px",
-              }}
-            >
-              {repos[0].name}
-            </span>
-
-            <span
-              style={{
-                fontSize: "11px",
-                fontWeight: 400,
-                color: "#666",
-                letterSpacing: "0.02em",
-                marginTop: "8px",
-                lineHeight: "1.4",
-              }}
-            >
-              {repos[0].scope}
-            </span>
-
-            <span
-              style={{
-                fontSize: "9px",
-                fontFamily: "monospace",
-                color: "#3a3a3a",
-                letterSpacing: "0.08em",
-                marginTop: "12px",
-              }}
-            >
-              {repos[0].telemetry}
-            </span>
-          </div>
-
-          {/* Vertical Divider */}
-          <div
-            style={{
-              display: "flex",
-              width: "1px",
-              height: "100%",
-              backgroundColor: "#161616",
-            }}
-          />
-
-          {/* Item 02 */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "510px",
-              paddingLeft: "36px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "baseline",
-                width: "100%",
-              }}
-            >
               <span
                 style={{
-                  fontSize: "10px",
-                  color: "#444",
-                  letterSpacing: "0.15em",
+                  fontSize: "16px",
                   fontWeight: 600,
+                  color: "#d4d4d4",
+                  letterSpacing: "-0.3px",
                 }}
               >
-                02 // {repos[1].domain}
-              </span>
-              <span
-                style={{
-                  fontSize: "9px",
-                  color: "#333",
-                  fontFamily: "monospace",
-                }}
-              >
-                [PUBLIC]
+                {repo.name}
               </span>
             </div>
-
-            <span
-              style={{
-                fontSize: "20px",
-                fontWeight: 600,
-                color: "#e8e8e8",
-                letterSpacing: "-0.4px",
-                marginTop: "10px",
-              }}
-            >
-              {repos[1].name}
-            </span>
-
-            <span
-              style={{
-                fontSize: "11px",
-                fontWeight: 400,
-                color: "#666",
-                letterSpacing: "0.02em",
-                marginTop: "8px",
-                lineHeight: "1.4",
-              }}
-            >
-              {repos[1].scope}
-            </span>
-
-            <span
-              style={{
-                fontSize: "9px",
-                fontFamily: "monospace",
-                color: "#3a3a3a",
-                letterSpacing: "0.08em",
-                marginTop: "12px",
-              }}
-            >
-              {repos[1].telemetry}
-            </span>
+            {repo.lang ? (
+              <span
+                style={{
+                  fontSize: "11px",
+                  color: "#555",
+                  letterSpacing: "0.04em",
+                }}
+              >
+                {repo.lang}
+              </span>
+            ) : null}
           </div>
-        </div>
-
-        {/* Horizontal Divider between rows */}
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            height: "1px",
-            backgroundColor: "#161616",
-            marginTop: "18px",
-            marginBottom: "18px",
-          }}
-        />
-
-        {/* Row 2 */}
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "space-between",
-          }}
-        >
-          {/* Item 03 */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "510px",
-              paddingRight: "36px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "baseline",
-                width: "100%",
-              }}
-            >
-              <span
-                style={{
-                  fontSize: "10px",
-                  color: "#444",
-                  letterSpacing: "0.15em",
-                  fontWeight: 600,
-                }}
-              >
-                03 // {repos[2].domain}
-              </span>
-              <span
-                style={{
-                  fontSize: "9px",
-                  color: "#333",
-                  fontFamily: "monospace",
-                }}
-              >
-                [PUBLIC]
-              </span>
-            </div>
-
-            <span
-              style={{
-                fontSize: "20px",
-                fontWeight: 600,
-                color: "#e8e8e8",
-                letterSpacing: "-0.4px",
-                marginTop: "10px",
-              }}
-            >
-              {repos[2].name}
-            </span>
-
-            <span
-              style={{
-                fontSize: "11px",
-                fontWeight: 400,
-                color: "#666",
-                letterSpacing: "0.02em",
-                marginTop: "8px",
-                lineHeight: "1.4",
-              }}
-            >
-              {repos[2].scope}
-            </span>
-
-            <span
-              style={{
-                fontSize: "9px",
-                fontFamily: "monospace",
-                color: "#3a3a3a",
-                letterSpacing: "0.08em",
-                marginTop: "12px",
-              }}
-            >
-              {repos[2].telemetry}
-            </span>
-          </div>
-
-          {/* Vertical Divider */}
-          <div
-            style={{
-              display: "flex",
-              width: "1px",
-              height: "100%",
-              backgroundColor: "#161616",
-            }}
-          />
-
-          {/* Item 04 */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "510px",
-              paddingLeft: "36px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "baseline",
-                width: "100%",
-              }}
-            >
-              <span
-                style={{
-                  fontSize: "10px",
-                  color: "#444",
-                  letterSpacing: "0.15em",
-                  fontWeight: 600,
-                }}
-              >
-                04 // {repos[3].domain}
-              </span>
-              <span
-                style={{
-                  fontSize: "9px",
-                  color: "#333",
-                  fontFamily: "monospace",
-                }}
-              >
-                [PUBLIC]
-              </span>
-            </div>
-
-            <span
-              style={{
-                fontSize: "20px",
-                fontWeight: 600,
-                color: "#e8e8e8",
-                letterSpacing: "-0.4px",
-                marginTop: "10px",
-              }}
-            >
-              {repos[3].name}
-            </span>
-
-            <span
-              style={{
-                fontSize: "11px",
-                fontWeight: 400,
-                color: "#666",
-                letterSpacing: "0.02em",
-                marginTop: "8px",
-                lineHeight: "1.4",
-              }}
-            >
-              {repos[3].scope}
-            </span>
-
-            <span
-              style={{
-                fontSize: "9px",
-                fontFamily: "monospace",
-                color: "#3a3a3a",
-                letterSpacing: "0.08em",
-                marginTop: "12px",
-              }}
-            >
-              {repos[3].telemetry}
-            </span>
-          </div>
-        </div>
+        ))}
       </div>
 
-      {/* ── Bottom Framing Rule & Metadata ── */}
+      {/* Bottom rule + footer */}
       <div
         style={{
           display: "flex",
@@ -504,23 +175,23 @@ export function Projects() {
         >
           <span
             style={{
-              fontSize: "9px",
+              fontSize: "10px",
               color: "#383838",
-              letterSpacing: "0.14em",
+              letterSpacing: "0.10em",
               fontFamily: "monospace",
             }}
           >
-            INDEX: 4 ARTIFACTS // REPO SPECIFICATION
+            github.com/HIMAVARASAGAR
           </span>
           <span
             style={{
-              fontSize: "9px",
+              fontSize: "10px",
               color: "#383838",
-              letterSpacing: "0.14em",
+              letterSpacing: "0.10em",
               fontFamily: "monospace",
             }}
           >
-            GITHUB.COM/HIMAVARASAGAR
+            6 PUBLIC
           </span>
         </div>
       </div>
