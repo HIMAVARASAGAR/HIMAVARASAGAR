@@ -53,12 +53,12 @@ function generateProjectsAccents(): string {
       0% { transform: translateY(0px); opacity: 0; }
       5% { opacity: 0.25; }
       90% { opacity: 0.2; }
-      100% { transform: translateY(520px); opacity: 0; }
+      100% { transform: translateY(400px); opacity: 0; }
     }
-    .repo-diode-1 { transform-origin: 64px 105px; animation: repoPulse 2.8s ease-in-out infinite; }
-    .repo-diode-2 { transform-origin: 642px 105px; animation: repoPulse 3.4s ease-in-out infinite 0.5s; }
-    .repo-diode-3 { transform-origin: 64px 285px; animation: repoPulse 3.1s ease-in-out infinite 1.0s; }
-    .repo-diode-4 { transform-origin: 642px 285px; animation: repoPulse 2.6s ease-in-out infinite 1.5s; }
+    .repo-diode-1 { transform-origin: 64px 60px; animation: repoPulse 2.8s ease-in-out infinite; }
+    .repo-diode-2 { transform-origin: 1136px 60px; animation: repoPulse 3.4s ease-in-out infinite 0.5s; }
+    .repo-diode-3 { transform-origin: 64px 345px; animation: repoPulse 3.1s ease-in-out infinite 1.0s; }
+    .repo-diode-4 { transform-origin: 1136px 345px; animation: repoPulse 2.6s ease-in-out infinite 1.5s; }
     .horiz-sweep { animation: matrixSweep 9s cubic-bezier(0.3, 0.05, 0.3, 0.95) infinite; }
   </style>
   <g id="projects-accents">
@@ -74,10 +74,10 @@ function generateProjectsAccents(): string {
       <rect x="64" y="-24" width="1072" height="24" fill="url(#projSweepGrad)"/>
     </g>
     <!-- Micro technical corner indicators on outer frame -->
-    <circle cx="64" cy="61" r="1.5" fill="rgba(255,255,255,0.4)" class="repo-diode-1"/>
-    <circle cx="1136" cy="61" r="1.5" fill="rgba(255,255,255,0.4)" class="repo-diode-2"/>
-    <circle cx="64" cy="482" r="1.5" fill="rgba(255,255,255,0.4)" class="repo-diode-3"/>
-    <circle cx="1136" cy="482" r="1.5" fill="rgba(255,255,255,0.4)" class="repo-diode-4"/>
+    <circle cx="64" cy="58" r="1.5" fill="rgba(255,255,255,0.4)" class="repo-diode-1"/>
+    <circle cx="1136" cy="58" r="1.5" fill="rgba(255,255,255,0.4)" class="repo-diode-2"/>
+    <circle cx="64" cy="348" r="1.5" fill="rgba(255,255,255,0.4)" class="repo-diode-3"/>
+    <circle cx="1136" cy="348" r="1.5" fill="rgba(255,255,255,0.4)" class="repo-diode-4"/>
   </g>
   `;
 }

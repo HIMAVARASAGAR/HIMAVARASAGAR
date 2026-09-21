@@ -36,21 +36,69 @@ export function generateAnimatedActivityLayer(
 ): string {
   const p: string[] = [];
 
-  const cellSize = 13.5;
-  const gap = 4.2;
-  const weeksCount = 52;
+  const cellSize = 13;
+  const gap = 3.8;
   const daysPerWeek = 7;
+
+  // Build calendar map by date string
+  const daysByDate = new Map<string, ContributionDay>();
+  for (const d of data.contributions) {
+    daysByDate.set(d.date, d);
+  }
+
+  // If no contributions, generate dummy fallback
+  const firstDateStr = data.contributions[0]?.date || "2025-09-21";
+  const lastDateStr = data.contributions[data.contributions.length - 1]?.date || "2026-09-21";
+
+  // Align start to the preceding Sunday
+  const startDate = new Date(firstDateStr + "T00:00:00Z");
+  const startDayOfWeek = startDate.getUTCDay(); // 0 = Sunday
+  startDate.setUTCDate(startDate.getUTCDate() - startDayOfWeek);
+
+  const endDate = new Date(lastDateStr + "T00:00:00Z");
+
+  // Construct weeks (Sunday to Saturday)
+  interface GridDay {
+    date: string;
+    dayOfWeek: number;
+    count: number;
+    level: number;
+  }
+
+  const allWeeks: GridDay[][] = [];
+  const curr = new Date(startDate);
+
+  while (curr <= endDate || curr.getUTCDay() !== 0) {
+    const dateStr = curr.toISOString().split("T")[0];
+    const dow = curr.getUTCDay();
+    if (dow === 0) {
+      allWeeks.push([]);
+    }
+    const dayData = daysByDate.get(dateStr) || { date: dateStr, count: 0, level: 0 };
+    allWeeks[allWeeks.length - 1].push({
+      date: dateStr,
+      dayOfWeek: dow,
+      count: dayData.count,
+      level: dayData.level,
+    });
+    curr.setUTCDate(curr.getUTCDate() + 1);
+  }
+
+  // Display the last 53 weeks (or all weeks if <= 53)
+  const displayWeeks = allWeeks.slice(-53);
+  const weeksCount = displayWeeks.length;
   const gridWidth = weeksCount * (cellSize + gap) - gap;
   const startX = Math.round((width - gridWidth) / 2);
   const startY = 100;
+  const gridHeight = daysPerWeek * (cellSize + gap) - gap;
 
   // CSS animations
   p.push(`<style>
     @keyframes calendarSweep {
-      0% { transform: translateX(${startX - 24}px); opacity: 0; }
+      0% { transform: translateX(${startX - 20}px); opacity: 0; }
       4% { opacity: 0.35; }
-      88% { opacity: 0.32; }
-      100% { transform: translateX(${startX + gridWidth + 24}px); opacity: 0; }
+      88% { opacity: 0.30; }
+      100% { transform: translateX(${startX + gridWidth + 20}px); opacity: 0; }
     }
     @keyframes activePulseHigh {
       0%, 100% { filter: drop-shadow(0 0 1px rgba(255,255,255,0.4)); opacity: 0.85; }
@@ -58,10 +106,10 @@ export function generateAnimatedActivityLayer(
     }
     @keyframes activePulseMid {
       0%, 100% { opacity: 0.55; }
-      50% { opacity: 0.80; }
+      50% { opacity: 0.82; }
     }
     .sweep-bar {
-      animation: calendarSweep 7.5s cubic-bezier(0.35, 0.05, 0.35, 0.95) infinite;
+      animation: calendarSweep 8s cubic-bezier(0.35, 0.05, 0.35, 0.95) infinite;
     }
     .node-high {
       animation: activePulseHigh 2.6s ease-in-out infinite;
@@ -77,74 +125,79 @@ export function generateAnimatedActivityLayer(
   p.push(`<defs>
     <linearGradient id="calSweepGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="white" stop-opacity="0"/>
-      <stop offset="100%" stop-color="white" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0.08"/>
     </linearGradient>
   </defs>`);
 
-  // ── Grid Framing & Axis Lines ─────────────────────────────────────
-  const gridHeight = daysPerWeek * (cellSize + gap) - gap;
-
-  // Top and bottom horizontal axis guidelines
+  // Axis guidelines
   p.push(`<line x1="${startX - 20}" y1="${startY - 26}" x2="${startX + gridWidth + 20}" y2="${startY - 26}" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/>`);
   p.push(`<line x1="${startX - 20}" y1="${startY + gridHeight + 20}" x2="${startX + gridWidth + 20}" y2="${startY + gridHeight + 20}" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/>`);
 
-  // Slice contributions to the exact 52 weeks (364 days)
-  const totalDays = weeksCount * daysPerWeek;
-  const daysList = data.contributions.slice(-totalDays);
+  // Month labels: place exactly above the week column where a new month starts
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  let lastLabeledCol = -10;
 
-  // Month labels and vertical tick guides
-  const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-  const weeksPerMonth = weeksCount / 12;
-  for (let m = 0; m < 12; m++) {
-    const x = startX + Math.floor(m * weeksPerMonth) * (cellSize + gap);
-    // Month label
-    p.push(`<text x="${x}" y="${startY - 12}" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.22)" font-weight="600" letter-spacing="1">${months[m]}</text>`);
-    // Hairline tick mark
-    p.push(`<line x1="${x}" y1="${startY - 8}" x2="${x}" y2="${startY - 4}" stroke="rgba(255,255,255,0.12)" stroke-width="0.5"/>`);
-  }
+  displayWeeks.forEach((week, wIdx) => {
+    // Check if any day in this week is the 1st of a month, or if it's the very first column
+    let monthToLabel: string | null = null;
+    if (wIdx === 0) {
+      const m = new Date(week[0].date + "T00:00:00Z").getUTCMonth();
+      monthToLabel = monthNames[m];
+    } else {
+      for (const day of week) {
+        if (day.date.endsWith("-01")) {
+          const m = parseInt(day.date.split("-")[1], 10) - 1;
+          monthToLabel = monthNames[m];
+          break;
+        }
+      }
+    }
 
-  // Day of week labels (MON, WED, FRI)
+    if (monthToLabel && (wIdx - lastLabeledCol) >= 3) {
+      const x = startX + wIdx * (cellSize + gap);
+      p.push(`<text x="${x}" y="${startY - 12}" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.25)" font-weight="600" letter-spacing="0.5">${monthToLabel.toUpperCase()}</text>`);
+      p.push(`<line x1="${x}" y1="${startY - 8}" x2="${x}" y2="${startY - 4}" stroke="rgba(255,255,255,0.12)" stroke-width="0.5"/>`);
+      lastLabeledCol = wIdx;
+    }
+  });
+
+  // Day of week labels on left (MON = Row 1, WED = Row 3, FRI = Row 5)
   const dayLabels: Record<number, string> = { 1: "MON", 3: "WED", 5: "FRI" };
   for (let d = 0; d < 7; d++) {
     if (dayLabels[d]) {
-      const y = startY + d * (cellSize + gap) + cellSize * 0.72;
+      const y = startY + d * (cellSize + gap) + cellSize * 0.75;
       p.push(`<text x="${startX - 14}" y="${y}" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,255,255,0.14)" text-anchor="end" font-weight="500">${dayLabels[d]}</text>`);
     }
   }
 
   // Render contribution cells
-  let dayIdx = 0;
-  for (let w = 0; w < weeksCount; w++) {
-    for (let d = 0; d < daysPerWeek; d++) {
-      const day = daysList[dayIdx++];
+  displayWeeks.forEach((week, w) => {
+    week.forEach(day => {
       const x = startX + w * (cellSize + gap);
-      const y = startY + d * (cellSize + gap);
+      const y = startY + day.dayOfWeek * (cellSize + gap);
 
-      const count = day?.count ?? 0;
-      const level = day?.level ?? 0;
+      const count = day.count;
+      const level = day.level;
 
       if (count > 0) {
         if (level >= 3 || count >= 4) {
-          // Intense activity
-          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2.5" fill="rgba(255,255,255,0.95)" class="node-high"/>`);
+          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(255,255,255,0.95)" class="node-high"/>`);
         } else if (level === 2 || count >= 2) {
-          // Moderate activity
-          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2.5" fill="rgba(255,255,255,0.60)" class="node-mid"/>`);
+          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(255,255,255,0.60)" class="node-mid"/>`);
         } else {
-          // Low activity
-          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2.5" fill="rgba(255,255,255,0.30)"/>`);
+          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(255,255,255,0.30)"/>`);
         }
       } else {
         // Zero-commit day: subtle precision coordinate cell
         p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(255,255,255,0.022)" stroke="rgba(255,255,255,0.018)" stroke-width="0.5"/>`);
       }
-    }
-  }
+    });
+  });
 
   // Oscilloscope sweep beam
   p.push(`<g class="sweep-bar">`);
-  p.push(`<line x1="0" y1="${startY - 16}" x2="0" y2="${startY + gridHeight + 16}" stroke="rgba(255,255,255,0.22)" stroke-width="0.75"/>`);
-  p.push(`<rect x="-24" y="${startY - 16}" width="24" height="${gridHeight + 32}" fill="url(#calSweepGrad)"/>`);
+  p.push(`<line x1="0" y1="${startY - 14}" x2="0" y2="${startY + gridHeight + 14}" stroke="rgba(255,255,255,0.20)" stroke-width="0.75"/>`);
+  p.push(`<rect x="-24" y="${startY - 14}" width="24" height="${gridHeight + 28}" fill="url(#calSweepGrad)"/>`);
   p.push(`</g>`);
 
   p.push(`</g>`);
