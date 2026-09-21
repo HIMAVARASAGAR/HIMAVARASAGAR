@@ -1,272 +1,85 @@
 export function Projects() {
-  const repos = [
-    { id: "01", name: "Soteria", lang: "TypeScript" },
-    { id: "02", name: "wow-gesture-recognition", lang: "Python" },
-    { id: "03", name: "codegraphview", lang: "Python" },
-    { id: "04", name: "glsl-fragment-shaders", lang: "GLSL" },
-    { id: "05", name: "Restaurent_chatbot", lang: "JavaScript" },
-    { id: "06", name: "My-Portfolio", lang: "HTML" },
-  ];
-
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
+        position: "relative",
         width: "1200px",
         height: "440px",
-        backgroundColor: "#0a0c0f",
-        color: "#f4f2eb",
+        display: "flex",
+        flexDirection: "column",
+        background: "#f2f0eb",
+        color: "#111111",
         fontFamily: "Inter",
-        padding: "36px 56px 32px 56px",
-        position: "relative",
-        justifyContent: "space-between",
-        border: "1px solid #1a1d24",
-        borderRadius: "4px",
+        padding: "24px",
+        paddingTop: "0",
       }}
     >
-      {/* Header */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "baseline",
-          width: "100%",
-        }}
-      >
-        <span
-          style={{
-            fontSize: "11px",
-            fontWeight: 600,
-            letterSpacing: "0.20em",
-            color: "#8b949e",
-          }}
-        >
-          REPOSITORIES
-        </span>
-
-        <span
-          style={{
-            fontSize: "12px",
-            fontWeight: 600,
-            color: "#f4f2eb",
-            fontFamily: "monospace",
-            letterSpacing: "0.08em",
-          }}
-        >
-          02
-        </span>
-      </div>
-
-      {/* Top rule */}
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-          height: "1px",
-          backgroundColor: "#1a1d24",
-          marginTop: "12px",
-        }}
-      />
-
-      {/* 2x3 Grid Container */}
       <div
         style={{
           display: "flex",
           flexDirection: "column",
-          flexGrow: 1,
-          justifyContent: "space-around",
-          paddingTop: "16px",
-          paddingBottom: "12px",
-        }}
-      >
-        {/* Row 1 */}
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "space-between",
-          }}
-        >
-          {repos.slice(0, 3).map((repo, i) => (
-            <div
-              key={repo.name}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "336px",
-                paddingRight: i < 2 ? "24px" : "0px",
-                paddingLeft: i > 0 ? "24px" : "0px",
-                borderRight: i < 2 ? "1px solid #1a1d24" : "none",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "baseline",
-                  width: "100%",
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: "10px",
-                    color: "#6e7681",
-                    fontFamily: "monospace",
-                    letterSpacing: "0.08em",
-                    fontWeight: 600,
-                  }}
-                >
-                  {repo.id}
-                </span>
-                <span
-                  style={{
-                    fontSize: "10px",
-                    color: "#6e7681",
-                    letterSpacing: "0.04em",
-                  }}
-                >
-                  {repo.lang}
-                </span>
-              </div>
-
-              <span
-                style={{
-                  fontSize: "17px",
-                  fontWeight: 600,
-                  color: "#f4f2eb",
-                  letterSpacing: "-0.3px",
-                  marginTop: "10px",
-                }}
-              >
-                {repo.name}
-              </span>
-            </div>
-          ))}
-        </div>
-
-        {/* Divider between row 1 and row 2 */}
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            height: "1px",
-            backgroundColor: "#1a1d24",
-            marginTop: "12px",
-            marginBottom: "12px",
-          }}
-        />
-
-        {/* Row 2 */}
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "space-between",
-          }}
-        >
-          {repos.slice(3, 6).map((repo, i) => (
-            <div
-              key={repo.name}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "336px",
-                paddingRight: i < 2 ? "24px" : "0px",
-                paddingLeft: i > 0 ? "24px" : "0px",
-                borderRight: i < 2 ? "1px solid #1a1d24" : "none",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "baseline",
-                  width: "100%",
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: "10px",
-                    color: "#6e7681",
-                    fontFamily: "monospace",
-                    letterSpacing: "0.08em",
-                    fontWeight: 600,
-                  }}
-                >
-                  {repo.id}
-                </span>
-                <span
-                  style={{
-                    fontSize: "10px",
-                    color: "#6e7681",
-                    letterSpacing: "0.04em",
-                  }}
-                >
-                  {repo.lang}
-                </span>
-              </div>
-
-              <span
-                style={{
-                  fontSize: "17px",
-                  fontWeight: 600,
-                  color: "#f4f2eb",
-                  letterSpacing: "-0.3px",
-                  marginTop: "10px",
-                }}
-              >
-                {repo.name}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Bottom rule + footer */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
           width: "100%",
+          height: "100%",
+          border: "4px solid #111111",
+          borderTop: "none", // Connects seamlessly from previous block if placed together, or just stands alone cleanly.
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            height: "1px",
-            backgroundColor: "#1a1d24",
-          }}
-        />
+        {/* Header Ribbon */}
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
-            width: "100%",
+            alignItems: "center",
+            padding: "16px 32px",
+            borderBottom: "4px solid #111111",
+            background: "#111111",
+            color: "#f2f0eb",
           }}
         >
-          <span
-            style={{
-              fontSize: "10px",
-              color: "#6e7681",
-              letterSpacing: "0.08em",
-              fontFamily: "monospace",
-            }}
-          >
-            github.com/HIMAVARASAGAR
-          </span>
-          <span
-            style={{
-              fontSize: "10px",
-              color: "#6e7681",
-              letterSpacing: "0.08em",
-              fontFamily: "monospace",
-            }}
-          >
-            6 public
-          </span>
+          <span style={{ fontSize: "20px", fontWeight: 600, letterSpacing: "-0.5px" }}>SELECTED WORKS</span>
+          <span style={{ fontSize: "20px", fontWeight: 600 }}>02</span>
+        </div>
+
+        {/* 2x2 Project Grid */}
+        <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+          {/* Row 1 */}
+          <div style={{ display: "flex", flexGrow: 1, borderBottom: "4px solid #111111" }}>
+            {/* Proj 1 */}
+            <div style={{ display: "flex", flexDirection: "column", width: "50%", borderRight: "4px solid #111111", padding: "32px", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <span style={{ fontSize: "32px", fontWeight: 600, letterSpacing: "-1px" }}>Universal Cognitive Engine</span>
+                <span style={{ fontSize: "24px", fontWeight: 600, color: "#d9331a" }}>01</span>
+              </div>
+              <span style={{ fontSize: "16px", fontWeight: 500, color: "#555" }}>Google ADK / Multi-Agent / Planning / Orchestration</span>
+            </div>
+            {/* Proj 2 */}
+            <div style={{ display: "flex", flexDirection: "column", width: "50%", padding: "32px", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <span style={{ fontSize: "32px", fontWeight: 600, letterSpacing: "-1px" }}>Graphene THz MIMO Antenna</span>
+                <span style={{ fontSize: "24px", fontWeight: 600, color: "#d9331a" }}>02</span>
+              </div>
+              <span style={{ fontSize: "16px", fontWeight: 500, color: "#555" }}>2-Element MIMO / ML Regression / Resonance Tuning</span>
+            </div>
+          </div>
+          {/* Row 2 */}
+          <div style={{ display: "flex", flexGrow: 1 }}>
+            {/* Proj 3 */}
+            <div style={{ display: "flex", flexDirection: "column", width: "50%", borderRight: "4px solid #111111", padding: "32px", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <span style={{ fontSize: "32px", fontWeight: 600, letterSpacing: "-1px" }}>csage</span>
+                <span style={{ fontSize: "24px", fontWeight: 600, color: "#d9331a" }}>03</span>
+              </div>
+              <span style={{ fontSize: "16px", fontWeight: 500, color: "#555" }}>Python / PyPI / Data Processing</span>
+            </div>
+            {/* Proj 4 */}
+            <div style={{ display: "flex", flexDirection: "column", width: "50%", padding: "32px", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <span style={{ fontSize: "32px", fontWeight: 600, letterSpacing: "-1px" }}>ESP32 Telemetry Framework</span>
+                <span style={{ fontSize: "24px", fontWeight: 600, color: "#d9331a" }}>04</span>
+              </div>
+              <span style={{ fontSize: "16px", fontWeight: 500, color: "#555" }}>UDP / Python / n8n / Thermal Testing</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

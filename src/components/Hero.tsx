@@ -7,143 +7,159 @@ export function Hero() {
         height: "630px",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
-        padding: "20px",
-        background: "#08090c",
-        color: "#f4f2eb",
+        background: "#f2f0eb",
+        color: "#111111",
         fontFamily: "Inter",
-        overflow: "hidden",
+        padding: "24px",
       }}
     >
-      {/* ── Top Masthead Bar ── */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          height: "52px",
-          padding: "0 24px",
-          fontSize: "11px",
-          color: "#8b949e",
-          letterSpacing: "0.14em",
-          fontWeight: 600,
-        }}
-      >
-        <span>HIMA VARA SAGAR</span>
-        <span style={{ color: "#6e7681", fontWeight: 400 }}>ELECTRONICS &amp; COMMUNICATION</span>
-        <span style={{ color: "#6e7681", fontWeight: 400 }}>HYDERABAD, IN</span>
-      </div>
-
-      {/* ── Central Monumental Typographic Block ── */}
+      {/* Inner Structural Frame */}
       <div
         style={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "flex-start",
-          height: "388px",
-          padding: "0 36px",
-        }}
-      >
-        <div
-          style={{
-            fontSize: "96px",
-            fontWeight: 600,
-            letterSpacing: "-4px",
-            lineHeight: "0.95",
-            color: "#f4f2eb",
-          }}
-        >
-          HIMA
-        </div>
-        <div
-          style={{
-            fontSize: "96px",
-            fontWeight: 600,
-            letterSpacing: "-4px",
-            lineHeight: "0.95",
-            color: "#f4f2eb",
-            marginTop: "6px",
-          }}
-        >
-          VARA SAGAR
-        </div>
-      </div>
-
-      {/* ── Lower 4-Column Specification Ledger ── */}
-      <div
-        style={{
-          display: "flex",
-          height: "150px",
           width: "100%",
+          height: "100%",
+          border: "4px solid #111111",
+          justifyContent: "space-between",
         }}
       >
-        {/* Col 1 */}
+        {/* Header Ribbon */}
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            width: "280px",
-            padding: "20px 24px",
             justifyContent: "space-between",
+            alignItems: "center",
+            padding: "24px 32px",
+            borderBottom: "4px solid #111111",
           }}
         >
-          <span style={{ fontSize: "10px", color: "#6e7681", letterSpacing: "0.10em" }}>01 / DISCIPLINE</span>
-          <span style={{ fontSize: "13px", fontWeight: 600, color: "#f4f2eb", letterSpacing: "-0.2px" }}>
-            Electronics &amp; Communication
-          </span>
-          <span style={{ fontSize: "11px", color: "#6e7681", fontFamily: "monospace" }}>ECE Graduate</span>
+          <span style={{ fontSize: "20px", fontWeight: 600, letterSpacing: "-0.5px" }}>ARCHIVE_2026</span>
+          <span style={{ fontSize: "20px", fontWeight: 600, color: "#d9331a" }}>NO. 001</span>
         </div>
 
-        {/* Col 2 */}
+        {/* Central Typographic Monument */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            width: "300px",
-            padding: "20px 24px",
-            justifyContent: "space-between",
+            justifyContent: "center",
+            padding: "0 32px",
+            flexGrow: 1,
+            position: "relative",
           }}
         >
-          <span style={{ fontSize: "10px", color: "#6e7681", letterSpacing: "0.10em" }}>02 / PRIMARY FOCUS</span>
-          <span style={{ fontSize: "13px", fontWeight: 600, color: "#f4f2eb", letterSpacing: "-0.2px" }}>
-            Hardware &amp; Systems Software
-          </span>
-          <span style={{ fontSize: "11px", color: "#6e7681", fontFamily: "monospace" }}>THz MIMO · Agent DAGs</span>
+          {/* Big Abstract Background Number */}
+          <div
+            style={{
+              position: "absolute",
+              right: "-20px",
+              top: "-80px",
+              fontSize: "600px",
+              fontWeight: 600,
+              color: "#e8e5dc",
+              letterSpacing: "-20px",
+              lineHeight: 1,
+              zIndex: 0,
+            }}
+          >
+            H
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              zIndex: 1,
+            }}
+          >
+            <div
+              style={{
+                fontSize: "170px",
+                fontWeight: 600,
+                letterSpacing: "-9px",
+                lineHeight: "0.8",
+                color: "#111111",
+              }}
+            >
+              HIMA VARA
+            </div>
+            <div
+              style={{
+                fontSize: "170px",
+                fontWeight: 600,
+                letterSpacing: "-9px",
+                lineHeight: "0.8",
+                color: "#111111",
+                display: "flex",
+                alignItems: "flex-end",
+                marginTop: "12px",
+              }}
+            >
+              SAGAR<span style={{ color: "#d9331a", fontSize: "170px" }}>.</span>
+            </div>
+          </div>
         </div>
 
-        {/* Col 3 */}
+        {/* Lower Info Matrix */}
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            width: "300px",
-            padding: "20px 24px",
-            justifyContent: "space-between",
+            borderTop: "4px solid #111111",
+            height: "120px",
           }}
         >
-          <span style={{ fontSize: "10px", color: "#6e7681", letterSpacing: "0.10em" }}>03 / CORE TOOLING</span>
-          <span style={{ fontSize: "13px", fontWeight: 600, color: "#f4f2eb", letterSpacing: "-0.2px" }}>
-            Google ADK · Python · C++
-          </span>
-          <span style={{ fontSize: "11px", color: "#6e7681", fontFamily: "monospace" }}>CST · ESP32 · GLSL</span>
-        </div>
+          {/* Col 1 */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              padding: "0 32px",
+              width: "30%",
+              borderRight: "4px solid #111111",
+            }}
+          >
+            <span style={{ fontSize: "12px", fontWeight: 600, color: "#777" }}>DISCIPLINE</span>
+            <span style={{ fontSize: "18px", fontWeight: 600, marginTop: "8px", letterSpacing: "-0.5px" }}>
+              ELECTRONICS &amp; COMMUNICATION
+            </span>
+          </div>
 
-        {/* Col 4 */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "280px",
-            padding: "20px 24px",
-            justifyContent: "space-between",
-          }}
-        >
-          <span style={{ fontSize: "10px", color: "#6e7681", letterSpacing: "0.10em" }}>04 / COORDINATES</span>
-          <span style={{ fontSize: "13px", fontWeight: 600, color: "#f4f2eb", letterSpacing: "-0.2px" }}>
-            17.3850° N, 78.4867° E
-          </span>
-          <span style={{ fontSize: "11px", color: "#6e7681", fontFamily: "monospace" }}>github.com/HIMAVARASAGAR</span>
+          {/* Col 2 */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              padding: "0 32px",
+              width: "30%",
+              borderRight: "4px solid #111111",
+            }}
+          >
+            <span style={{ fontSize: "12px", fontWeight: 600, color: "#777" }}>CORE COMPETENCY</span>
+            <span style={{ fontSize: "18px", fontWeight: 600, marginTop: "8px", letterSpacing: "-0.5px" }}>
+              AGENT ARCHITECTURES // THz MIMO
+            </span>
+          </div>
+
+          {/* Col 3 */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              padding: "0 32px",
+              width: "40%",
+              background: "#111111",
+              color: "#f2f0eb",
+            }}
+          >
+            <span style={{ fontSize: "12px", fontWeight: 600, color: "#888" }}>LOCATION // COORDINATES</span>
+            <span style={{ fontSize: "18px", fontWeight: 600, marginTop: "8px", letterSpacing: "-0.5px" }}>
+              HYDERABAD, INDIA
+            </span>
+          </div>
         </div>
       </div>
     </div>

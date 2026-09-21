@@ -36,8 +36,8 @@ export function generateAnimatedActivityLayer(
 ): string {
   const p: string[] = [];
 
-  const cellSize = 13;
-  const gap = 3.8;
+  const cellSize = 14;
+  const gap = 2; // Tighter print gap
   const daysPerWeek = 7;
 
   // Build calendar map by date string
@@ -86,46 +86,17 @@ export function generateAnimatedActivityLayer(
   const weeksCount = displayWeeks.length;
   const gridWidth = weeksCount * (cellSize + gap) - gap;
   const startX = Math.round((width - gridWidth) / 2);
-  const startY = 100;
+  const startY = 80;
   const gridHeight = daysPerWeek * (cellSize + gap) - gap;
 
-  // CSS animations
-  p.push(`<style>
-    @keyframes calendarSweep {
-      0% { transform: translateX(${startX - 20}px); opacity: 0; }
-      4% { opacity: 0.55; }
-      88% { opacity: 0.45; }
-      100% { transform: translateX(${startX + gridWidth + 20}px); opacity: 0; }
-    }
-    @keyframes activeWhitePulse {
-      0%, 100% { opacity: 0.90; filter: drop-shadow(0 0 1px rgba(255,255,255,0.4)); }
-      50% { opacity: 1; filter: drop-shadow(0 0 4px rgba(255,255,255,0.95)); }
-    }
-    .sweep-bar {
-      animation: calendarSweep 8s cubic-bezier(0.35, 0.05, 0.35, 0.95) infinite;
-    }
-    .node-high {
-      animation: activeWhitePulse 2.6s ease-in-out infinite;
-    }
-  </style>`);
-
-  p.push(`<g id="animated-activity-layer">`);
-
-  // Linear gradient for sweep line with titanium/ember tone
-  p.push(`<defs>
-    <linearGradient id="calSweepGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#ff5500" stop-opacity="0"/>
-      <stop offset="85%" stop-color="#ff5500" stop-opacity="0.05"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.25"/>
-    </linearGradient>
-  </defs>`);
+  p.push(`<g id="activity-print-grid">`);
 
   // Axis guidelines
-  p.push(`<line x1="${startX - 20}" y1="${startY - 26}" x2="${startX + gridWidth + 20}" y2="${startY - 26}" stroke="#1d222a" stroke-width="0.8"/>`);
-  p.push(`<line x1="${startX - 20}" y1="${startY + gridHeight + 20}" x2="${startX + gridWidth + 20}" y2="${startY + gridHeight + 20}" stroke="#1d222a" stroke-width="0.8"/>`);
+  p.push(`<line x1="${startX - 20}" y1="${startY - 20}" x2="${startX + gridWidth + 20}" y2="${startY - 20}" stroke="#111111" stroke-width="2"/>`);
+  p.push(`<line x1="${startX - 20}" y1="${startY + gridHeight + 20}" x2="${startX + gridWidth + 20}" y2="${startY + gridHeight + 20}" stroke="#111111" stroke-width="2"/>`);
 
   // Month labels: place exactly above the week column where a new month starts
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
   let lastLabeledCol = -10;
 
   displayWeeks.forEach((week, wIdx) => {
@@ -143,10 +114,9 @@ export function generateAnimatedActivityLayer(
       }
     }
 
-    if (monthToLabel && (wIdx - lastLabeledCol) >= 3) {
+    if (monthToLabel && (wIdx - lastLabeledCol) >= 4) {
       const x = startX + wIdx * (cellSize + gap);
-      p.push(`<text x="${x}" y="${startY - 12}" font-family="Inter,sans-serif" font-size="8.5" fill="#6e7681" font-weight="600" letter-spacing="0.5">${monthToLabel.toUpperCase()}</text>`);
-      p.push(`<line x1="${x}" y1="${startY - 8}" x2="${x}" y2="${startY - 4}" stroke="#1d222a" stroke-width="0.8"/>`);
+      p.push(`<text x="${x}" y="${startY - 8}" font-family="Inter,sans-serif" font-size="10" fill="#111111" font-weight="700">${monthToLabel}</text>`);
       lastLabeledCol = wIdx;
     }
   });
@@ -156,7 +126,7 @@ export function generateAnimatedActivityLayer(
   for (let d = 0; d < 7; d++) {
     if (dayLabels[d]) {
       const y = startY + d * (cellSize + gap) + cellSize * 0.75;
-      p.push(`<text x="${startX - 14}" y="${y}" font-family="Inter,sans-serif" font-size="8" fill="#6e7681" text-anchor="end" font-weight="500">${dayLabels[d]}</text>`);
+      p.push(`<text x="${startX - 14}" y="${y}" font-family="Inter,sans-serif" font-size="9" fill="#111111" text-anchor="end" font-weight="700">${dayLabels[d]}</text>`);
     }
   }
 
@@ -171,27 +141,21 @@ export function generateAnimatedActivityLayer(
 
       if (count > 0) {
         if (level >= 3 || count >= 4) {
-          // Intense activity: brilliant paper white
-          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="#ffffff" class="node-high"/>`);
+          // Intense activity: Deep Red
+          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" fill="#d9331a" />`);
         } else if (level === 2 || count >= 2) {
-          // Moderate activity: luminous silver
-          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(240, 244, 252, 0.75)"/>`);
+          // Moderate activity: Solid Black
+          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" fill="#111111" />`);
         } else {
-          // Low activity: cool titanium
-          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(240, 244, 252, 0.40)"/>`);
+          // Low activity: Mid Gray
+          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" fill="#777777" />`);
         }
       } else {
-        // Zero-commit day: subtle precision coordinate cell
-        p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>`);
+        // Zero-commit day: subtle paper crease
+        p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" fill="#e5e3db" stroke="#d5d3cb" stroke-width="1"/>`);
       }
     });
   });
-
-  // Oscilloscope sweep beam with warm ember edge
-  p.push(`<g class="sweep-bar">`);
-  p.push(`<line x1="0" y1="${startY - 14}" x2="0" y2="${startY + gridHeight + 14}" stroke="#ff5500" stroke-opacity="0.65" stroke-width="0.8"/>`);
-  p.push(`<rect x="-24" y="${startY - 14}" width="24" height="${gridHeight + 28}" fill="url(#calSweepGrad)"/>`);
-  p.push(`</g>`);
 
   p.push(`</g>`);
   return p.join("\n");
