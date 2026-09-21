@@ -36,11 +36,10 @@ export function generateAnimatedActivityLayer(
 ): string {
   const p: string[] = [];
 
-  const cellSize = 14;
-  const gap = 2; // Tighter print gap
+  const tileW = 20;
+  const tileH = 10;
   const daysPerWeek = 7;
 
-  // Build calendar map by date string
   const daysByDate = new Map<string, ContributionDay>();
   for (const d of data.contributions) {
     daysByDate.set(d.date, d);
@@ -49,11 +48,9 @@ export function generateAnimatedActivityLayer(
   const firstDateStr = data.contributions[0]?.date || "2025-09-21";
   const lastDateStr = data.contributions[data.contributions.length - 1]?.date || "2026-09-21";
 
-  // Align start to the preceding Sunday
   const startDate = new Date(firstDateStr + "T00:00:00Z");
   const startDayOfWeek = startDate.getUTCDay();
   startDate.setUTCDate(startDate.getUTCDate() - startDayOfWeek);
-
   const endDate = new Date(lastDateStr + "T00:00:00Z");
 
   interface GridDay {
@@ -83,76 +80,90 @@ export function generateAnimatedActivityLayer(
   }
 
   const displayWeeks = allWeeks.slice(-53);
-  const weeksCount = displayWeeks.length;
-  const gridWidth = weeksCount * (cellSize + gap) - gap;
-  const startX = Math.round((width - gridWidth) / 2);
-  const startY = 80;
-  const gridHeight = daysPerWeek * (cellSize + gap) - gap;
+  
+  // Calculate bounding offsets to center the isometric city
+  // x = week index, y = day index
+  // sx = originX + (x - y) * (tileW / 2)
+  // sy = originY + (x + y) * (tileH / 2)
+  const maxW = displayWeeks.length - 1;
+  const maxD = 6;
+  
+  const minSx = -maxD * (tileW / 2);
+  const maxSx = maxW * (tileW / 2);
+  const mapWidth = maxSx - minSx;
+  
+  const originX = width / 2 - (minSx + maxSx) / 2;
+  const originY = 90; // Top margin
 
-  p.push(`<g id="activity-print-grid">`);
+  p.push(`<g id="activity-isometric-cityscape">`);
 
-  // Axis guidelines
-  p.push(`<line x1="${startX - 20}" y1="${startY - 20}" x2="${startX + gridWidth + 20}" y2="${startY - 20}" stroke="#111111" stroke-width="2"/>`);
-  p.push(`<line x1="${startX - 20}" y1="${startY + gridHeight + 20}" x2="${startX + gridWidth + 20}" y2="${startY + gridHeight + 20}" stroke="#111111" stroke-width="2"/>`);
-
-  // Month labels: place exactly above the week column where a new month starts
-  const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-  let lastLabeledCol = -10;
-
-  displayWeeks.forEach((week, wIdx) => {
-    let monthToLabel: string | null = null;
-    if (wIdx === 0) {
-      const m = new Date(week[0].date + "T00:00:00Z").getUTCMonth();
-      monthToLabel = monthNames[m];
-    } else {
-      for (const day of week) {
-        if (day.date.endsWith("-01")) {
-          const m = parseInt(day.date.split("-")[1], 10) - 1;
-          monthToLabel = monthNames[m];
-          break;
-        }
-      }
-    }
-
-    if (monthToLabel && (wIdx - lastLabeledCol) >= 4) {
-      const x = startX + wIdx * (cellSize + gap);
-      p.push(`<text x="${x}" y="${startY - 8}" font-family="Inter,sans-serif" font-size="10" fill="#111111" font-weight="700">${monthToLabel}</text>`);
-      lastLabeledCol = wIdx;
-    }
-  });
-
-  // Day of week labels on left (MON = Row 1, WED = Row 3, FRI = Row 5)
-  const dayLabels: Record<number, string> = { 1: "MON", 3: "WED", 5: "FRI" };
-  for (let d = 0; d < 7; d++) {
-    if (dayLabels[d]) {
-      const y = startY + d * (cellSize + gap) + cellSize * 0.75;
-      p.push(`<text x="${startX - 14}" y="${y}" font-family="Inter,sans-serif" font-size="9" fill="#111111" text-anchor="end" font-weight="700">${dayLabels[d]}</text>`);
-    }
-  }
-
-  // Render contribution cells
+  // We sort standard 0..W, 0..D which naturally provides the correct back-to-front drawing order
   displayWeeks.forEach((week, w) => {
     week.forEach(day => {
-      const x = startX + w * (cellSize + gap);
-      const y = startY + day.dayOfWeek * (cellSize + gap);
-
+      const x = w;
+      const y = day.dayOfWeek;
+      
+      const sx = originX + (x - y) * (tileW / 2);
+      const sy = originY + (x + y) * (tileH / 2);
+      
       const count = day.count;
       const level = day.level;
+      
+      // Calculate height with logarithmic-like cap for visual balance
+      let z = count === 0 ? 0 : Math.min(80, 4 + count * 6);
+
+      // Determine colors based on level
+      let cTop = "#E5E3DB";
+      let cLeft = "#D5D3CB";
+      let cRight = "#C5C3BB";
+      let stroke = "#D5D3CB";
+      let strokeW = "0.5";
 
       if (count > 0) {
+        stroke = "#111111"; // Brutalist stark outlines for active blocks
+        strokeW = "1";
         if (level >= 3 || count >= 4) {
-          // Intense activity: Deep Red
-          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" fill="#d9331a" />`);
+          cTop = "#FF4B26";
+          cLeft = "#D9331A";
+          cRight = "#A62410";
         } else if (level === 2 || count >= 2) {
-          // Moderate activity: Solid Black
-          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" fill="#111111" />`);
+          cTop = "#333333";
+          cLeft = "#111111";
+          cRight = "#000000";
         } else {
-          // Low activity: Mid Gray
-          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" fill="#777777" />`);
+          cTop = "#A0A0A0";
+          cLeft = "#777777";
+          cRight = "#555555";
         }
+      }
+
+      if (z === 0) {
+        // Flat tile
+        const t1 = `${sx},${sy}`;
+        const t2 = `${sx + tileW/2},${sy + tileH/2}`;
+        const t3 = `${sx},${sy + tileH}`;
+        const t4 = `${sx - tileW/2},${sy + tileH/2}`;
+        p.push(`<polygon points="${t1} ${t2} ${t3} ${t4}" fill="${cTop}" stroke="${stroke}" stroke-width="${strokeW}" />`);
       } else {
-        // Zero-commit day: subtle paper crease
-        p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" fill="#e5e3db" stroke="#d5d3cb" stroke-width="1"/>`);
+        // 3D Extruded Block
+        const t1 = `${sx},${sy - z}`;
+        const t2 = `${sx + tileW/2},${sy + tileH/2 - z}`;
+        const t3 = `${sx},${sy + tileH - z}`;
+        const t4 = `${sx - tileW/2},${sy + tileH/2 - z}`;
+        
+        const l1 = `${sx - tileW/2},${sy + tileH/2 - z}`;
+        const l2 = `${sx},${sy + tileH - z}`;
+        const l3 = `${sx},${sy + tileH}`;
+        const l4 = `${sx - tileW/2},${sy + tileH/2}`;
+
+        const r1 = `${sx},${sy + tileH - z}`;
+        const r2 = `${sx + tileW/2},${sy + tileH/2 - z}`;
+        const r3 = `${sx + tileW/2},${sy + tileH/2}`;
+        const r4 = `${sx},${sy + tileH}`;
+
+        p.push(`<polygon points="${l1} ${l2} ${l3} ${l4}" fill="${cLeft}" stroke="${stroke}" stroke-width="${strokeW}" />`);
+        p.push(`<polygon points="${r1} ${r2} ${r3} ${r4}" fill="${cRight}" stroke="${stroke}" stroke-width="${strokeW}" />`);
+        p.push(`<polygon points="${t1} ${t2} ${t3} ${t4}" fill="${cTop}" stroke="${stroke}" stroke-width="${strokeW}" />`);
       }
     });
   });

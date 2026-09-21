@@ -33,7 +33,7 @@ export function Activity() {
             borderBottom: "4px solid #111111",
           }}
         >
-          <span style={{ fontSize: "20px", fontWeight: 600, letterSpacing: "-0.5px" }}>COMMIT LOG // TIMELINE</span>
+          <span style={{ fontSize: "20px", fontWeight: 600, letterSpacing: "-0.5px" }}>ISOMETRIC DATA SCULPTURE</span>
           <span style={{ fontSize: "20px", fontWeight: 600 }}>03</span>
         </div>
 
