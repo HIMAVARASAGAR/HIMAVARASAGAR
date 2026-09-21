@@ -36,7 +36,7 @@ await fs.mkdir("src/generated", { recursive: true });
 // ── Scene Dimensions ────────────────────────────────────────────────
 const scenes: { name: string; element: React.JSX.Element; width: number; height: number }[] = [
   { name: "hero", element: <Hero />, width: 1200, height: 630 },
-  { name: "projects", element: <Projects />, width: 1200, height: 460 },
+  { name: "projects", element: <Projects />, width: 1200, height: 440 },
   { name: "activity", element: <Activity />, width: 1200, height: 320 },
   { name: "closing", element: <Closing />, width: 1200, height: 240 },
 ];
@@ -48,7 +48,7 @@ function generateProjectsAccents(): string {
       0% { transform: translateY(0px); opacity: 0; }
       5% { opacity: 0.55; }
       90% { opacity: 0.45; }
-      100% { transform: translateY(460px); opacity: 0; }
+      100% { transform: translateY(440px); opacity: 0; }
     }
     @keyframes nodeBlink {
       0%, 100% { opacity: 0.3; }
@@ -73,8 +73,8 @@ function generateProjectsAccents(): string {
     <!-- Micro technical corner indicators on outer frame -->
     <circle cx="56" cy="36" r="2" fill="#00f0ff" class="corner-node"/>
     <circle cx="1144" cy="36" r="2" fill="#00f0ff" class="corner-node"/>
-    <circle cx="56" cy="428" r="2" fill="#00f0ff" class="corner-node"/>
-    <circle cx="1144" cy="428" r="2" fill="#00f0ff" class="corner-node"/>
+    <circle cx="56" cy="408" r="2" fill="#00f0ff" class="corner-node"/>
+    <circle cx="1144" cy="408" r="2" fill="#00f0ff" class="corner-node"/>
   </g>
   `;
 }
