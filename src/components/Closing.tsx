@@ -6,12 +6,14 @@ export function Closing() {
         flexDirection: "column",
         width: "1200px",
         height: "240px",
-        backgroundColor: "#080808",
+        backgroundColor: "#070a0f",
         color: "#f2f2f2",
         fontFamily: "Inter",
-        padding: "36px 64px 32px 64px",
+        padding: "32px 56px 28px 56px",
         position: "relative",
         justifyContent: "space-between",
+        border: "1px solid #1a2332",
+        borderRadius: "6px",
       }}
     >
       {/* ── Top Framing Rule & Coordinates ── */}
@@ -35,7 +37,7 @@ export function Closing() {
             style={{
               fontSize: "10px",
               fontFamily: "monospace",
-              color: "#3a3a3a",
+              color: "#50627a",
               letterSpacing: "0.14em",
             }}
           >
@@ -45,11 +47,11 @@ export function Closing() {
             style={{
               fontSize: "10px",
               fontFamily: "monospace",
-              color: "#3a3a3a",
+              color: "#00f0ff",
               letterSpacing: "0.14em",
             }}
           >
-            END_TRANSMISSION // 04
+            04 // END TRANSMISSION
           </span>
         </div>
         <div
@@ -57,7 +59,7 @@ export function Closing() {
             display: "flex",
             width: "100%",
             height: "1px",
-            backgroundColor: "#1c1c1c",
+            backgroundColor: "#16202c",
           }}
         />
       </div>
@@ -69,7 +71,7 @@ export function Closing() {
           justifyContent: "space-between",
           alignItems: "flex-end",
           width: "100%",
-          paddingBottom: "8px",
+          paddingBottom: "6px",
         }}
       >
         {/* Left: Identity Specification */}
@@ -82,9 +84,9 @@ export function Closing() {
         >
           <span
             style={{
-              fontSize: "15px",
+              fontSize: "16px",
               fontWeight: 600,
-              color: "#e0e0e0",
+              color: "#e2f9ff",
               letterSpacing: "-0.2px",
             }}
           >
@@ -93,11 +95,11 @@ export function Closing() {
           <span
             style={{
               fontSize: "10px",
-              color: "#555",
+              color: "#50627a",
               letterSpacing: "0.06em",
             }}
           >
-            Electronics & Communication Engineer · Systems & AI Developer
+            Electronics & Communication Engineer · High-Frequency RF & Systems
           </span>
         </div>
 
@@ -106,25 +108,25 @@ export function Closing() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "28px",
+            gap: "24px",
           }}
         >
           <span
             style={{
               fontSize: "11px",
               fontFamily: "monospace",
-              color: "#666",
+              color: "#8092a8",
               letterSpacing: "0.04em",
             }}
           >
             github.com/HIMAVARASAGAR
           </span>
-          <span style={{ fontSize: "11px", color: "#222" }}>/</span>
+          <span style={{ fontSize: "11px", color: "#1a2332" }}>/</span>
           <span
             style={{
               fontSize: "11px",
               fontFamily: "monospace",
-              color: "#666",
+              color: "#8092a8",
               letterSpacing: "0.04em",
             }}
           >

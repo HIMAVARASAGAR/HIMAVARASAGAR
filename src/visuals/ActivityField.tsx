@@ -46,18 +46,16 @@ export function generateAnimatedActivityLayer(
     daysByDate.set(d.date, d);
   }
 
-  // If no contributions, generate dummy fallback
   const firstDateStr = data.contributions[0]?.date || "2025-09-21";
   const lastDateStr = data.contributions[data.contributions.length - 1]?.date || "2026-09-21";
 
   // Align start to the preceding Sunday
   const startDate = new Date(firstDateStr + "T00:00:00Z");
-  const startDayOfWeek = startDate.getUTCDay(); // 0 = Sunday
+  const startDayOfWeek = startDate.getUTCDay();
   startDate.setUTCDate(startDate.getUTCDate() - startDayOfWeek);
 
   const endDate = new Date(lastDateStr + "T00:00:00Z");
 
-  // Construct weeks (Sunday to Saturday)
   interface GridDay {
     date: string;
     dayOfWeek: number;
@@ -84,7 +82,6 @@ export function generateAnimatedActivityLayer(
     curr.setUTCDate(curr.getUTCDate() + 1);
   }
 
-  // Display the last 53 weeks (or all weeks if <= 53)
   const displayWeeks = allWeeks.slice(-53);
   const weeksCount = displayWeeks.length;
   const gridWidth = weeksCount * (cellSize + gap) - gap;
@@ -96,49 +93,42 @@ export function generateAnimatedActivityLayer(
   p.push(`<style>
     @keyframes calendarSweep {
       0% { transform: translateX(${startX - 20}px); opacity: 0; }
-      4% { opacity: 0.35; }
-      88% { opacity: 0.30; }
+      4% { opacity: 0.55; }
+      88% { opacity: 0.45; }
       100% { transform: translateX(${startX + gridWidth + 20}px); opacity: 0; }
     }
-    @keyframes activePulseHigh {
-      0%, 100% { filter: drop-shadow(0 0 1px rgba(255,255,255,0.4)); opacity: 0.85; }
-      50% { filter: drop-shadow(0 0 5px rgba(255,255,255,0.95)); opacity: 1; }
-    }
-    @keyframes activePulseMid {
-      0%, 100% { opacity: 0.55; }
-      50% { opacity: 0.82; }
+    @keyframes activeGlowPulse {
+      0%, 100% { filter: drop-shadow(0 0 1px #00f0ff); opacity: 0.85; }
+      50% { filter: drop-shadow(0 0 5px #00f0ff); opacity: 1; }
     }
     .sweep-bar {
-      animation: calendarSweep 8s cubic-bezier(0.35, 0.05, 0.35, 0.95) infinite;
+      animation: calendarSweep 7.5s cubic-bezier(0.35, 0.05, 0.35, 0.95) infinite;
     }
     .node-high {
-      animation: activePulseHigh 2.6s ease-in-out infinite;
-    }
-    .node-mid {
-      animation: activePulseMid 3.4s ease-in-out infinite;
+      animation: activeGlowPulse 2.4s ease-in-out infinite;
     }
   </style>`);
 
   p.push(`<g id="animated-activity-layer">`);
 
-  // Linear gradient for sweep line
+  // Linear gradient for sweep line with cyan phosphor tint
   p.push(`<defs>
     <linearGradient id="calSweepGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="white" stop-opacity="0"/>
-      <stop offset="100%" stop-color="white" stop-opacity="0.08"/>
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0"/>
+      <stop offset="80%" stop-color="#00f0ff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#00f0ff" stop-opacity="0.25"/>
     </linearGradient>
   </defs>`);
 
   // Axis guidelines
-  p.push(`<line x1="${startX - 20}" y1="${startY - 26}" x2="${startX + gridWidth + 20}" y2="${startY - 26}" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/>`);
-  p.push(`<line x1="${startX - 20}" y1="${startY + gridHeight + 20}" x2="${startX + gridWidth + 20}" y2="${startY + gridHeight + 20}" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/>`);
+  p.push(`<line x1="${startX - 20}" y1="${startY - 26}" x2="${startX + gridWidth + 20}" y2="${startY - 26}" stroke="#16202c" stroke-width="0.8"/>`);
+  p.push(`<line x1="${startX - 20}" y1="${startY + gridHeight + 20}" x2="${startX + gridWidth + 20}" y2="${startY + gridHeight + 20}" stroke="#16202c" stroke-width="0.8"/>`);
 
   // Month labels: place exactly above the week column where a new month starts
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   let lastLabeledCol = -10;
 
   displayWeeks.forEach((week, wIdx) => {
-    // Check if any day in this week is the 1st of a month, or if it's the very first column
     let monthToLabel: string | null = null;
     if (wIdx === 0) {
       const m = new Date(week[0].date + "T00:00:00Z").getUTCMonth();
@@ -155,8 +145,8 @@ export function generateAnimatedActivityLayer(
 
     if (monthToLabel && (wIdx - lastLabeledCol) >= 3) {
       const x = startX + wIdx * (cellSize + gap);
-      p.push(`<text x="${x}" y="${startY - 12}" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.25)" font-weight="600" letter-spacing="0.5">${monthToLabel.toUpperCase()}</text>`);
-      p.push(`<line x1="${x}" y1="${startY - 8}" x2="${x}" y2="${startY - 4}" stroke="rgba(255,255,255,0.12)" stroke-width="0.5"/>`);
+      p.push(`<text x="${x}" y="${startY - 12}" font-family="Inter,sans-serif" font-size="8.5" fill="#50627a" font-weight="600" letter-spacing="0.5">${monthToLabel.toUpperCase()}</text>`);
+      p.push(`<line x1="${x}" y1="${startY - 8}" x2="${x}" y2="${startY - 4}" stroke="#1a2332" stroke-width="0.8"/>`);
       lastLabeledCol = wIdx;
     }
   });
@@ -166,7 +156,7 @@ export function generateAnimatedActivityLayer(
   for (let d = 0; d < 7; d++) {
     if (dayLabels[d]) {
       const y = startY + d * (cellSize + gap) + cellSize * 0.75;
-      p.push(`<text x="${startX - 14}" y="${y}" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,255,255,0.14)" text-anchor="end" font-weight="500">${dayLabels[d]}</text>`);
+      p.push(`<text x="${startX - 14}" y="${y}" font-family="Inter,sans-serif" font-size="8" fill="#50627a" text-anchor="end" font-weight="500">${dayLabels[d]}</text>`);
     }
   }
 
@@ -181,23 +171,26 @@ export function generateAnimatedActivityLayer(
 
       if (count > 0) {
         if (level >= 3 || count >= 4) {
-          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(255,255,255,0.95)" class="node-high"/>`);
+          // Intense activity: phosphor cyan glowing
+          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="#00f0ff" class="node-high"/>`);
         } else if (level === 2 || count >= 2) {
-          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(255,255,255,0.60)" class="node-mid"/>`);
+          // Moderate activity: soft cyan
+          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(0, 240, 255, 0.75)"/>`);
         } else {
-          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(255,255,255,0.30)"/>`);
+          // Low activity: cool white
+          p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(255, 255, 255, 0.45)"/>`);
         }
       } else {
-        // Zero-commit day: subtle precision coordinate cell
-        p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(255,255,255,0.022)" stroke="rgba(255,255,255,0.018)" stroke-width="0.5"/>`);
+        // Zero-commit day: subtle precision coordinate cell with visible border
+        p.push(`<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>`);
       }
     });
   });
 
   // Oscilloscope sweep beam
   p.push(`<g class="sweep-bar">`);
-  p.push(`<line x1="0" y1="${startY - 14}" x2="0" y2="${startY + gridHeight + 14}" stroke="rgba(255,255,255,0.20)" stroke-width="0.75"/>`);
-  p.push(`<rect x="-24" y="${startY - 14}" width="24" height="${gridHeight + 28}" fill="url(#calSweepGrad)"/>`);
+  p.push(`<line x1="0" y1="${startY - 14}" x2="0" y2="${startY + gridHeight + 14}" stroke="#00f0ff" stroke-opacity="0.8" stroke-width="1.0"/>`);
+  p.push(`<rect x="-28" y="${startY - 14}" width="28" height="${gridHeight + 28}" fill="url(#calSweepGrad)"/>`);
   p.push(`</g>`);
 
   p.push(`</g>`);

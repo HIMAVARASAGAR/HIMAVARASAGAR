@@ -33,11 +33,10 @@ const fonts = [
 
 await fs.mkdir("src/generated", { recursive: true });
 
-// ── Generate all scenes ─────────────────────────────────────────────
-
+// ── Scene Dimensions ────────────────────────────────────────────────
 const scenes: { name: string; element: React.JSX.Element; width: number; height: number }[] = [
   { name: "hero", element: <Hero />, width: 1200, height: 630 },
-  { name: "projects", element: <Projects />, width: 1200, height: 400 },
+  { name: "projects", element: <Projects />, width: 1200, height: 460 },
   { name: "activity", element: <Activity />, width: 1200, height: 320 },
   { name: "closing", element: <Closing />, width: 1200, height: 240 },
 ];
@@ -45,39 +44,37 @@ const scenes: { name: string; element: React.JSX.Element; width: number; height:
 function generateProjectsAccents(): string {
   return `
   <style>
-    @keyframes repoPulse {
-      0%, 100% { opacity: 0.25; transform: scale(0.9); }
-      50% { opacity: 0.9; transform: scale(1.1); }
-    }
     @keyframes matrixSweep {
       0% { transform: translateY(0px); opacity: 0; }
-      5% { opacity: 0.25; }
-      90% { opacity: 0.2; }
-      100% { transform: translateY(400px); opacity: 0; }
+      5% { opacity: 0.55; }
+      90% { opacity: 0.45; }
+      100% { transform: translateY(460px); opacity: 0; }
     }
-    .repo-diode-1 { transform-origin: 64px 60px; animation: repoPulse 2.8s ease-in-out infinite; }
-    .repo-diode-2 { transform-origin: 1136px 60px; animation: repoPulse 3.4s ease-in-out infinite 0.5s; }
-    .repo-diode-3 { transform-origin: 64px 345px; animation: repoPulse 3.1s ease-in-out infinite 1.0s; }
-    .repo-diode-4 { transform-origin: 1136px 345px; animation: repoPulse 2.6s ease-in-out infinite 1.5s; }
-    .horiz-sweep { animation: matrixSweep 9s cubic-bezier(0.3, 0.05, 0.3, 0.95) infinite; }
+    @keyframes nodeBlink {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    .proj-sweep { animation: matrixSweep 8s cubic-bezier(0.3, 0.05, 0.3, 0.95) infinite; }
+    .corner-node { animation: nodeBlink 2.4s ease-in-out infinite; }
   </style>
   <g id="projects-accents">
     <defs>
       <linearGradient id="projSweepGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="white" stop-opacity="0"/>
-        <stop offset="100%" stop-color="white" stop-opacity="0.04"/>
+        <stop offset="0%" stop-color="#00f0ff" stop-opacity="0"/>
+        <stop offset="80%" stop-color="#00f0ff" stop-opacity="0.04"/>
+        <stop offset="100%" stop-color="#00f0ff" stop-opacity="0.16"/>
       </linearGradient>
     </defs>
-    <!-- Matrix subtle horizontal scan beam -->
-    <g class="horiz-sweep">
-      <line x1="64" y1="0" x2="1136" y2="0" stroke="rgba(255,255,255,0.12)" stroke-width="0.5"/>
-      <rect x="64" y="-24" width="1072" height="24" fill="url(#projSweepGrad)"/>
+    <!-- Subtle vertical scanning beam with cyan phosphor tint -->
+    <g class="proj-sweep">
+      <line x1="56" y1="0" x2="1144" y2="0" stroke="#00f0ff" stroke-opacity="0.7" stroke-width="1.0"/>
+      <rect x="56" y="-28" width="1088" height="28" fill="url(#projSweepGrad)"/>
     </g>
     <!-- Micro technical corner indicators on outer frame -->
-    <circle cx="64" cy="58" r="1.5" fill="rgba(255,255,255,0.4)" class="repo-diode-1"/>
-    <circle cx="1136" cy="58" r="1.5" fill="rgba(255,255,255,0.4)" class="repo-diode-2"/>
-    <circle cx="64" cy="348" r="1.5" fill="rgba(255,255,255,0.4)" class="repo-diode-3"/>
-    <circle cx="1136" cy="348" r="1.5" fill="rgba(255,255,255,0.4)" class="repo-diode-4"/>
+    <circle cx="56" cy="36" r="2" fill="#00f0ff" class="corner-node"/>
+    <circle cx="1144" cy="36" r="2" fill="#00f0ff" class="corner-node"/>
+    <circle cx="56" cy="428" r="2" fill="#00f0ff" class="corner-node"/>
+    <circle cx="1144" cy="428" r="2" fill="#00f0ff" class="corner-node"/>
   </g>
   `;
 }
@@ -86,16 +83,17 @@ function generateClosingAccents(): string {
   return `
   <style>
     @keyframes beaconBlink {
-      0%, 100% { opacity: 0.15; }
-      50% { opacity: 0.95; }
+      0%, 100% { opacity: 0.25; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.2); }
     }
     .beacon-light {
+      transform-origin: 1144px 34px;
       animation: beaconBlink 2s ease-in-out infinite;
     }
   </style>
   <g id="closing-accents">
-    <circle cx="1136" cy="41" r="2" fill="#ffffff" class="beacon-light"/>
-    <circle cx="1136" cy="41" r="5" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.5" class="beacon-light"/>
+    <circle cx="1144" cy="34" r="2.5" fill="#00f0ff" class="beacon-light"/>
+    <circle cx="1144" cy="34" r="7" fill="none" stroke="#00f0ff" stroke-opacity="0.5" stroke-width="0.8" class="beacon-light"/>
   </g>
   `;
 }
@@ -108,31 +106,31 @@ for (const scene of scenes) {
       fonts,
     });
 
-    const bgRect = `<rect x="0" y="0" width="${scene.width}" height="${scene.height}" fill="#080808"/>`;
+    const bgRegex = /(?:<rect|<path)[^>]*fill="#(?:080808|070a0f)"[^>]*\/>/;
 
     // Inject animated visual layer into hero.svg
-    if (scene.name === "hero" && svg.includes(bgRect)) {
+    if (scene.name === "hero" && bgRegex.test(svg)) {
       const animatedLayer = generateAnimatedHeroLayer();
-      svg = svg.replace(bgRect, bgRect + animatedLayer);
+      svg = svg.replace(bgRegex, match => match + animatedLayer);
     }
 
     // Inject animated real-time activity grid into activity.svg
-    if (scene.name === "activity" && svg.includes(bgRect)) {
+    if (scene.name === "activity" && bgRegex.test(svg)) {
       const data = getContributionData();
       const activityLayer = generateAnimatedActivityLayer(scene.width, scene.height, data);
-      svg = svg.replace(bgRect, bgRect + activityLayer);
+      svg = svg.replace(bgRegex, match => match + activityLayer);
     }
 
     // Inject subtle accents into projects.svg
-    if (scene.name === "projects" && svg.includes(bgRect)) {
+    if (scene.name === "projects" && bgRegex.test(svg)) {
       const projLayer = generateProjectsAccents();
-      svg = svg.replace(bgRect, bgRect + projLayer);
+      svg = svg.replace(bgRegex, match => match + projLayer);
     }
 
     // Inject beacon into closing.svg
-    if (scene.name === "closing" && svg.includes(bgRect)) {
+    if (scene.name === "closing" && bgRegex.test(svg)) {
       const closingLayer = generateClosingAccents();
-      svg = svg.replace(bgRect, bgRect + closingLayer);
+      svg = svg.replace(bgRegex, match => match + closingLayer);
     }
 
     await fs.writeFile(`src/generated/${scene.name}.svg`, svg);
