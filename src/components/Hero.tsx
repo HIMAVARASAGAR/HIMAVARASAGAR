@@ -8,26 +8,27 @@ export function Hero() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        padding: "64px",
-        background: "#080808",
-        color: "#f2f2f2",
+        padding: "60px 64px",
+        background: "#0a0c0f",
+        color: "#f4f2eb",
         fontFamily: "Inter",
         overflow: "hidden",
       }}
     >
-      {/* Top row: Name & ECE metadata */}
+      {/* Top row */}
       <div
         style={{
           position: "relative",
           display: "flex",
           justifyContent: "space-between",
-          fontSize: 18,
-          color: "#777",
-          letterSpacing: "1px",
+          fontSize: 14,
+          color: "#8b949e",
+          letterSpacing: "0.15em",
+          fontWeight: 600,
         }}
       >
         <div>HIMA VARA SAGAR</div>
-        <div>ECE / INDIA</div>
+        <div style={{ color: "#6e7681", fontWeight: 400 }}>ECE · INDIA</div>
       </div>
 
       {/* Main hero typography */}
@@ -36,14 +37,16 @@ export function Hero() {
           position: "relative",
           display: "flex",
           flexDirection: "column",
+          width: "440px",
         }}
       >
         <div
           style={{
-            fontSize: 112,
+            fontSize: 108,
             fontWeight: 600,
-            letterSpacing: "-5px",
-            lineHeight: "1.02",
+            letterSpacing: "-4px",
+            lineHeight: "1.0",
+            color: "#f4f2eb",
           }}
         >
           HIMA
@@ -51,10 +54,12 @@ export function Hero() {
 
         <div
           style={{
-            fontSize: 112,
+            fontSize: 108,
             fontWeight: 600,
-            letterSpacing: "-5px",
-            lineHeight: "1.02",
+            letterSpacing: "-4px",
+            lineHeight: "1.0",
+            color: "#f4f2eb",
+            marginTop: "4px",
           }}
         >
           VARA SAGAR
@@ -67,8 +72,10 @@ export function Hero() {
           position: "relative",
           display: "flex",
           justifyContent: "space-between",
-          fontSize: 16,
-          color: "#666",
+          fontSize: 13,
+          color: "#6e7681",
+          fontFamily: "monospace",
+          letterSpacing: "0.08em",
         }}
       >
         <div>github.com/HIMAVARASAGAR</div>

@@ -15,14 +15,14 @@ export function Projects() {
         flexDirection: "column",
         width: "1200px",
         height: "440px",
-        backgroundColor: "#0c0e12",
-        color: "#f2f2f2",
+        backgroundColor: "#0a0c0f",
+        color: "#f4f2eb",
         fontFamily: "Inter",
         padding: "36px 56px 32px 56px",
         position: "relative",
         justifyContent: "space-between",
-        border: "1px solid #1d222a",
-        borderRadius: "6px",
+        border: "1px solid #1a1d24",
+        borderRadius: "4px",
       }}
     >
       {/* Header */}
@@ -39,7 +39,7 @@ export function Projects() {
             fontSize: "11px",
             fontWeight: 600,
             letterSpacing: "0.20em",
-            color: "#e2e8f0",
+            color: "#8b949e",
           }}
         >
           REPOSITORIES
@@ -49,7 +49,8 @@ export function Projects() {
           style={{
             fontSize: "12px",
             fontWeight: 600,
-            color: "#ff5500",
+            color: "#f4f2eb",
+            fontFamily: "monospace",
             letterSpacing: "0.08em",
           }}
         >
@@ -63,7 +64,7 @@ export function Projects() {
           display: "flex",
           width: "100%",
           height: "1px",
-          backgroundColor: "#1d222a",
+          backgroundColor: "#1a1d24",
           marginTop: "12px",
         }}
       />
@@ -96,7 +97,7 @@ export function Projects() {
                 width: "336px",
                 paddingRight: i < 2 ? "24px" : "0px",
                 paddingLeft: i > 0 ? "24px" : "0px",
-                borderRight: i < 2 ? "1px solid #1d222a" : "none",
+                borderRight: i < 2 ? "1px solid #1a1d24" : "none",
               }}
             >
               <div
@@ -110,7 +111,7 @@ export function Projects() {
                 <span
                   style={{
                     fontSize: "10px",
-                    color: "#8b949e",
+                    color: "#6e7681",
                     fontFamily: "monospace",
                     letterSpacing: "0.08em",
                     fontWeight: 600,
@@ -133,7 +134,7 @@ export function Projects() {
                 style={{
                   fontSize: "17px",
                   fontWeight: 600,
-                  color: "#f0f2f5",
+                  color: "#f4f2eb",
                   letterSpacing: "-0.3px",
                   marginTop: "10px",
                 }}
@@ -150,7 +151,7 @@ export function Projects() {
             display: "flex",
             width: "100%",
             height: "1px",
-            backgroundColor: "#1d222a",
+            backgroundColor: "#1a1d24",
             marginTop: "12px",
             marginBottom: "12px",
           }}
@@ -173,7 +174,7 @@ export function Projects() {
                 width: "336px",
                 paddingRight: i < 2 ? "24px" : "0px",
                 paddingLeft: i > 0 ? "24px" : "0px",
-                borderRight: i < 2 ? "1px solid #1d222a" : "none",
+                borderRight: i < 2 ? "1px solid #1a1d24" : "none",
               }}
             >
               <div
@@ -187,7 +188,7 @@ export function Projects() {
                 <span
                   style={{
                     fontSize: "10px",
-                    color: "#8b949e",
+                    color: "#6e7681",
                     fontFamily: "monospace",
                     letterSpacing: "0.08em",
                     fontWeight: 600,
@@ -210,7 +211,7 @@ export function Projects() {
                 style={{
                   fontSize: "17px",
                   fontWeight: 600,
-                  color: "#f0f2f5",
+                  color: "#f4f2eb",
                   letterSpacing: "-0.3px",
                   marginTop: "10px",
                 }}
@@ -236,7 +237,7 @@ export function Projects() {
             display: "flex",
             width: "100%",
             height: "1px",
-            backgroundColor: "#1d222a",
+            backgroundColor: "#1a1d24",
           }}
         />
         <div
@@ -251,6 +252,7 @@ export function Projects() {
               fontSize: "10px",
               color: "#6e7681",
               letterSpacing: "0.08em",
+              fontFamily: "monospace",
             }}
           >
             github.com/HIMAVARASAGAR
@@ -260,6 +262,7 @@ export function Projects() {
               fontSize: "10px",
               color: "#6e7681",
               letterSpacing: "0.08em",
+              fontFamily: "monospace",
             }}
           >
             6 public
