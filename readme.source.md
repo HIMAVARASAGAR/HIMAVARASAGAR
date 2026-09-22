@@ -1,167 +1,87 @@
-I'm an electronics and communication engineering graduate based in Hyderabad, India. I work on hardware projects, agent architectures, and telemetry frameworks.
-
-```aura width=1200 height=800
-<div style={{ display: 'flex', width: 1200, height: 800, background: '#07080b', fontFamily: 'Inter', overflow: 'hidden', position: 'relative' }}>
+```aura width=1200 height=480
+<div style={{ display: 'flex', width: 1200, height: 480, background: '#ECEBE8', color: '#0A0A0A', fontFamily: 'Inter', overflow: 'hidden', position: 'relative' }}>
   <style>{`
-    @keyframes pulse-core {
-      0%, 100% { transform: scale(1); opacity: 0.85; }
-      50% { transform: scale(1.12); opacity: 1; }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
-    @keyframes flow-data {
-      from { stroke-dashoffset: 24; }
-      to { stroke-dashoffset: 0; }
+    @keyframes pulse-block {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
-    @keyframes drift-bg {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(60px, -40px); }
-    }
-    #core-node {
-      animation: pulse-core 4s ease-in-out infinite;
-      transform-origin: 600px 400px;
-    }
-    .data-stream {
-      animation: flow-data 1.5s linear infinite;
-    }
-    #bg-glow-1 {
-      animation: drift-bg 18s ease-in-out infinite;
-    }
-    #bg-glow-2 {
-      animation: drift-bg 24s ease-in-out infinite reverse;
+    .grid-line {
+      stroke: #0A0A0A;
+      stroke-width: 3;
     }
   `}</style>
-
-  {/* Animated Background Atmosphere */}
-  <div id="bg-glow-1" style={{ position: 'absolute', top: -200, left: -200, width: 800, height: 800, borderRadius: 400, background: 'radial-gradient(circle, rgba(40,50,120,0.18) 0%, rgba(0,0,0,0) 70%)' }} />
-  <div id="bg-glow-2" style={{ position: 'absolute', top: 300, left: 700, width: 900, height: 900, borderRadius: 450, background: 'radial-gradient(circle, rgba(15,70,140,0.15) 0%, rgba(0,0,0,0) 70%)' }} />
-
-  {/* SVG Canvas for Orbits, Vectors, and the Core */}
-  <svg width="1200" height="800" style={{ position: 'absolute', top: 0, left: 0 }}>
-    <defs>
-      <radialGradient id="core-glow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
-        <stop offset="25%" stopColor="#88bbee" stopOpacity="0.7" />
-        <stop offset="100%" stopColor="#88bbee" stopOpacity="0" />
-      </radialGradient>
-      <linearGradient id="vector-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#4466aa" stopOpacity="0.5" />
-        <stop offset="100%" stopColor="#223355" stopOpacity="0" />
-      </linearGradient>
-    </defs>
-
-    {/* The Work Vectors (Data Flow Lines to Projects) */}
-    <g stroke="#223344" strokeWidth="1.5" fill="none" opacity="0.6">
-      <path class="data-stream" stroke-dasharray="4, 8" d="M 600 400 L 250 180" />
-      <path class="data-stream" stroke-dasharray="4, 8" d="M 600 400 L 950 180" />
-      <path class="data-stream" stroke-dasharray="4, 8" d="M 600 400 L 250 620" />
-      <path class="data-stream" stroke-dasharray="4, 8" d="M 600 400 L 950 620" />
-    </g>
-
-    {/* Orbits and Satellites */}
-    {(() => {
-      const p = [];
-      const langs = github?.languages && github.languages.length > 0 
-        ? github.languages.slice(0, 5) 
-        : [
-            { name: 'TypeScript', percentage: 45, color: '#3178c6' },
-            { name: 'JavaScript', percentage: 25, color: '#f1e05a' },
-            { name: 'Python', percentage: 15, color: '#3572A5' },
-            { name: 'C++', percentage: 10, color: '#f34b7d' },
-            { name: 'Rust', percentage: 5, color: '#dea584' }
-          ];
-
-      const baseRadius = 140;
-      const gap = 45;
-      
-      // Draw Orbit Rings
-      langs.forEach((lang, i) => {
-        const r = baseRadius + i * gap;
-        p.push(<circle key={`orbit-${i}`} cx="600" cy="400" r={r} fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />);
-      });
-
-      // Draw Orbiting Nodes (Satellites)
-      langs.forEach((lang, i) => {
-        const r = baseRadius + i * gap;
-        const dur = 20 + (i * 12); // Inner orbits spin faster
-        const nodeSize = Math.max(3.5, (lang.percentage / 100) * 22); // Size based on tech dominance
-        const color = lang.color || "#ffffff";
-        
-        p.push(
-          <g key={`sat-${i}`}>
-            <animateTransform attributeName="transform" type="rotate" from={`0 600 400`} to={`360 600 400`} dur={`${dur}s`} repeatCount="indefinite" />
-            <circle cx="600" cy={400 - r} r={nodeSize} fill={color} />
-            {/* Outer halo for satellite */}
-            <circle cx="600" cy={400 - r} r={nodeSize + 6} fill="none" stroke={color} strokeOpacity="0.25" strokeWidth="1" />
-          </g>
-        );
-      });
-      return p;
-    })()}
-
-    {/* The Central Core */}
-    <g id="core-node">
-      <circle cx="600" cy="400" r="120" fill="url(#core-glow)" />
-      <circle cx="600" cy="400" r="32" fill="#ffffff" />
-    </g>
+  
+  {/* Severe Structural Grid */}
+  <svg width="1200" height="480" style={{ position: 'absolute', top: 0, left: 0 }}>
+    {/* Horizontal */}
+    <path class="grid-line" d="M 0 120 L 1200 120" />
+    <path class="grid-line" d="M 0 360 L 1200 360" />
+    {/* Vertical */}
+    <path class="grid-line" d="M 360 120 L 360 480" />
+    <path class="grid-line" d="M 840 120 L 840 360" />
   </svg>
 
-  {/* Typography Overlays (Clean HTML text mapping to the vectors) */}
-  <div style={{ position: 'absolute', top: 140, left: 60, display: 'flex', flexDirection: 'column', width: 250 }}>
-    <span style={{ fontSize: 18, fontWeight: 700, color: '#ffffff', letterSpacing: '-0.3px' }}>Universal Cognitive Engine</span>
-    <span style={{ fontSize: 13, fontWeight: 500, color: '#778899', marginTop: 6 }}>Agent Architecture • Planning</span>
-  </div>
-
-  <div style={{ position: 'absolute', top: 140, right: 60, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', width: 250, textAlign: 'right' }}>
-    <span style={{ fontSize: 18, fontWeight: 700, color: '#ffffff', letterSpacing: '-0.3px' }}>Graphene Antenna</span>
-    <span style={{ fontSize: 13, fontWeight: 500, color: '#778899', marginTop: 6 }}>Hardware • ML Regression</span>
-  </div>
-
-  <div style={{ position: 'absolute', top: 600, left: 60, display: 'flex', flexDirection: 'column', width: 250 }}>
-    <span style={{ fontSize: 18, fontWeight: 700, color: '#ffffff', letterSpacing: '-0.3px' }}>csage</span>
-    <span style={{ fontSize: 13, fontWeight: 500, color: '#778899', marginTop: 6 }}>Python • PyPI • Data Processing</span>
-  </div>
-
-  <div style={{ position: 'absolute', top: 600, right: 60, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', width: 250, textAlign: 'right' }}>
-    <span style={{ fontSize: 18, fontWeight: 700, color: '#ffffff', letterSpacing: '-0.3px' }}>ESP32 Telemetry</span>
-    <span style={{ fontSize: 13, fontWeight: 500, color: '#778899', marginTop: 6 }}>UDP • Firmware • Thermal</span>
-  </div>
-
-  {/* Identity & Lifetime Metrics */}
-  <div style={{ position: 'absolute', top: 40, left: 60, display: 'flex', flexDirection: 'column' }}>
-    <span style={{ fontSize: 26, fontWeight: 800, color: '#ffffff', letterSpacing: '-1px' }}>{github?.user?.name?.toUpperCase() || 'HIMA VARA SAGAR'}</span>
-    <span style={{ fontSize: 13, fontWeight: 600, color: '#556677', letterSpacing: '2px', marginTop: 4 }}>ELECTRONICS & COMMUNICATION</span>
-  </div>
-
-  <div style={{ position: 'absolute', bottom: 40, left: 60, display: 'flex', gap: 48 }}>
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <span style={{ fontSize: 11, fontWeight: 600, color: '#445566', letterSpacing: '1px' }}>LIFETIME COMMITS</span>
-      <span style={{ fontSize: 24, fontWeight: 700, color: '#ffffff', marginTop: 4 }}>{github?.stats?.totalCommits || 1342}</span>
-    </div>
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <span style={{ fontSize: 11, fontWeight: 600, color: '#445566', letterSpacing: '1px' }}>REPOSITORIES</span>
-      <span style={{ fontSize: 24, fontWeight: 700, color: '#ffffff', marginTop: 4 }}>{github?.stats?.totalRepos || 25}</span>
+  {/* Top Section: Infinite Data Marquee */}
+  <div style={{ position: 'absolute', top: 0, left: 0, width: 2400, height: 120, display: 'flex', alignItems: 'center', background: '#0A0A0A', color: '#ECEBE8' }}>
+    <div style={{ display: 'flex', animation: 'marquee 25s linear infinite', whiteSpace: 'nowrap' }}>
+      {(() => {
+        const langs = github?.languages && github.languages.length > 0 ? github.languages : [{name: 'TYPESCRIPT', percentage: 40}, {name: 'PYTHON', percentage: 30}];
+        const str = langs.map(l => `${l.name.toUpperCase()} ${(l.percentage).toFixed(1)}%`).join('   —   ');
+        return <span style={{ fontSize: 64, fontWeight: 900, letterSpacing: '-2px', paddingLeft: 60 }}>{str}   —   {str}   —   {str}   —   {str}</span>
+      })()}
     </div>
   </div>
 
-  {/* Language Legend */}
-  <div style={{ position: 'absolute', bottom: 40, right: 60, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 8 }}>
-    {(() => {
-      const langs = github?.languages && github.languages.length > 0 
-        ? github.languages.slice(0, 5) 
-        : [
-            { name: 'TypeScript', percentage: 45, color: '#3178c6' },
-            { name: 'JavaScript', percentage: 25, color: '#f1e05a' },
-            { name: 'Python', percentage: 15, color: '#3572A5' },
-            { name: 'C++', percentage: 10, color: '#f34b7d' },
-            { name: 'Rust', percentage: 5, color: '#dea584' }
-          ];
-      return langs.map((lang, i) => (
-        <div key={`legend-${i}`} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ fontSize: 12, fontWeight: 600, color: '#667788' }}>{lang.name.toUpperCase()}</span>
-          <div style={{ width: 10, height: 10, borderRadius: 5, background: lang.color || '#fff' }} />
-        </div>
-      ));
-    })()}
+  {/* Middle Left: Identity */}
+  <div style={{ position: 'absolute', top: 120, left: 0, width: 360, height: 240, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 40px' }}>
+    <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: '2px', marginBottom: 12, color: '#666' }}>ARCHIVE ID</span>
+    <div style={{ display: 'flex', flexDirection: 'column', fontSize: 64, fontWeight: 900, letterSpacing: '-4px', lineHeight: 0.85 }}>
+      <span>HIMA</span>
+      <span>VARA</span>
+      <span>SAGAR</span>
+    </div>
   </div>
 
+  {/* Middle Center: Brutalist Data Architecture */}
+  <div style={{ position: 'absolute', top: 120, left: 360, width: 480, height: 240, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', padding: '0 40px' }}>
+    <svg width="400" height="240" style={{ transform: 'rotate(180deg)' }}>
+      {(() => {
+        const langs = github?.languages && github.languages.length > 0 ? github.languages : [{percentage: 50}, {percentage: 30}, {percentage: 20}];
+        let currentX = 0;
+        return langs.slice(0, 8).map((l, i) => {
+          const width = Math.max(4, (l.percentage / 100) * 400);
+          const rect = <rect key={i} x={currentX} y="0" width={width > 2 ? width - 2 : width} height={240} fill={l.color || "#0A0A0A"} />;
+          currentX += width;
+          return rect;
+        });
+      })()}
+    </svg>
+  </div>
+
+  {/* Middle Right: Lifetime Metrics */}
+  <div style={{ position: 'absolute', top: 120, left: 840, width: 360, height: 240, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 40px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 40 }}>
+      <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: '2px', color: '#666' }}>LIFETIME COMMITS</span>
+      <span style={{ fontSize: 72, fontWeight: 900, letterSpacing: '-5px', lineHeight: 1 }}>{github?.stats?.totalCommits || 1337}</span>
+    </div>
+  </div>
+
+  {/* Bottom Row */}
+  <div style={{ position: 'absolute', top: 360, left: 0, width: 1200, height: 120, display: 'flex' }}>
+    <div style={{ width: 360, display: 'flex', alignItems: 'center', padding: '0 40px', borderRight: '3px solid #0A0A0A' }}>
+      <span style={{ fontSize: 16, fontWeight: 700, letterSpacing: '1px' }}>HYDERABAD, IN</span>
+    </div>
+    <div style={{ flexGrow: 1, display: 'flex', alignItems: 'center', padding: '0 40px', borderRight: '3px solid #0A0A0A' }}>
+      <span style={{ fontSize: 16, fontWeight: 700, letterSpacing: '1px' }}>ELECTRONICS & COMMUNICATION</span>
+    </div>
+    <div style={{ width: 240, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 40px' }}>
+      <span style={{ fontSize: 16, fontWeight: 700, letterSpacing: '1px' }}>SYNC</span>
+      <div style={{ width: 24, height: 24, background: '#D9331A', animation: 'pulse-block 2s infinite step-end' }} />
+    </div>
+  </div>
 </div>
 ```
